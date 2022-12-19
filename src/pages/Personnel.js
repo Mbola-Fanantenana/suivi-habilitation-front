@@ -107,7 +107,7 @@ export default function Personnel() {
                     </Button>
                 </div>
                 <div className='form-group'>
-                    <input type='text' className='form-control' onChange={(e)=>setSearch(e.target.value)} placeholder='rechercher ...' />
+                    <input type='text' className='form-control' onChange={(e) => setSearch(e.target.value)} placeholder='rechercher ...' />
                 </div>
             </div>
             <br />
@@ -232,21 +232,23 @@ export default function Personnel() {
                                     <Form.Label>Nom : </Form.Label>
                                     <Form.Control type="text" onChange={(e) => setPersNom(e.target.value)} placeholder="entrer nom" />
                                 </Form.Group>
+                            </Row>
+                            <Row className='mb-3'>
                                 <Form.Group as={Col} controlId="formGridPrenom">
                                     <Form.Label>Prénom : </Form.Label>
                                     <Form.Control type="text" onChange={(e) => setPersPrenom(e.target.value)} placeholder="entrer prénom" />
                                 </Form.Group>
+                                <Form.Group as={Col}>
+                                    <label>Fonction titulaire :</label>
+                                    <select className='form-control'>
+                                        {
+                                            roles.map((item) => (
+                                                <option onChange={hangleChange}>{item.roleFonction}</option>
+                                            ))
+                                        }
+                                    </select>
+                                </Form.Group>
                             </Row>
-                            <div className='form-group'>
-                                <label>Fonction titulaire :</label>
-                                <select className='form-control'>
-                                    {
-                                        roles.map((item) => (
-                                            <option onChange={hangleChange}>{item.roleFonction}</option>
-                                        ))
-                                    }
-                                </select>
-                            </div>
 
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridLogin">
@@ -263,16 +265,22 @@ export default function Personnel() {
                                     <Form.Label>Numéro CIN :</Form.Label>
                                     <Form.Control type="text" onChange={(e) => setPersCIN(e.target.value)} placeholder="entrer numéro CIN" />
                                 </Form.Group>
+                                <Form.Group as={Col} constrolId="formGridEmail">
+                                    <Form.Label>Adresse mail :</Form.Label>
+                                    <Form.Control type="email" className='form-control' onChange={(e) => setPersEmail(e.target.value)} placeholder="entrer adresse email" />
+                                </Form.Group>
+                            </Row>
+
+                            <Row className='mb-3'>
+                                <Form.Group as={Col}>
+                                    <Form.Label></Form.Label>
+                                    <Form.Control placeholder="+261" disabled />
+                                </Form.Group>
                                 <Form.Group as={Col} controlId="formGridNum">
                                     <Form.Label>Numéro téléphone :</Form.Label>
                                     <Form.Control type="text" onChange={(e) => setPersNumTel(e.target.value)} placeholder="entrer numéro téléphone" />
                                 </Form.Group>
                             </Row>
-
-                            <Form.Group className='mb-3' constrolId="formGridEmail">
-                                <Form.Label>Adresse mail :</Form.Label>
-                                <Form.Control type="email" className='form-control' onChange={(e) => setPersEmail(e.target.value)} placeholder="entrer adresse email" />
-                            </Form.Group>
 
                         </Form>
                     </Modal.Body>

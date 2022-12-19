@@ -48,10 +48,12 @@ export default function FormBar() {
                                 </Link>
 
                                 <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+
                                     <li class="dropdown-header">
                                         <h6>Admin</h6>
                                         <span>gérer habilitation</span>
                                     </li>
+
                                     <li>
                                         <hr class="dropdown-divider" />
                                     </li>
@@ -62,6 +64,7 @@ export default function FormBar() {
                                             <span>Profil</span>
                                         </Link>
                                     </li>
+
                                     <li>
                                         <hr class="dropdown-divider" />
                                     </li>
@@ -85,13 +88,6 @@ export default function FormBar() {
                 <aside id="sidebar" class="sidebar">
 
                     <ul class="sidebar-nav" id="sidebar-nav">
-
-                        <li class="nav-item">
-                            <Link class="nav-link collapsed" to="/habilitation">
-                                <i class="bi bi-grid"></i>
-                                <span>Habilitation</span>
-                            </Link>
-                        </li>
 
                         <li class="nav-item">
                             <Link class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
@@ -121,6 +117,12 @@ export default function FormBar() {
                             </ul>
                         </li>
 
+                        <li class="nav-item">
+                            <Link class="nav-link collapsed" to="/habilitation">
+                                <i class="bi bi-grid"></i>
+                                <span>Habilitation</span>
+                            </Link>
+                        </li>
 
                         <li class="nav-heading">Autres pages</li>
 
