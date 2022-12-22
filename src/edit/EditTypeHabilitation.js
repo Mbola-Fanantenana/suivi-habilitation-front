@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Card, Form, Row } from 'react-bootstrap';
 
 export default function EditTypeHabilitation() {
@@ -82,6 +82,11 @@ export default function EditTypeHabilitation() {
                                         onChange={handleChange}
                                     />
                                     <button type='submit' className="btn btn-primary m-3">Valider</button>
+                                    <button className="btn btn-secondary">
+                                        <Link to={'/typeHabilitation'}>
+                                        </Link>
+                                        retour
+                                    </button>
                                 </Form.Group>
                             </Row>
                         </Form>

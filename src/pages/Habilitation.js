@@ -50,8 +50,6 @@ export default function Habilitation() {
 
     return (
         <div className='container'>
-            <br />
-            <br />
             <div className='row'>
                 <div className='mt-5 mb-4'>
                     <Button size='sm' variant='primary'>
@@ -94,7 +92,9 @@ export default function Habilitation() {
                                     <td>{item.habDateDebut}</td>
                                     <td>{item.habDateFin}</td>
                                     <td>{item.statusDebut}</td>
-                                    <td>{item.statusFin}</td>
+                                    <td>
+                                        {item.statusFin}
+                                    </td>
                                     <td>
                                         <ButtonGroup aria-label='Basic example'>
                                             <Button size='sm' variant='secondary' onClick={() => { handleViewShow(setRowHabilitation(item)) }}> <FontAwesomeIcon icon={faEye} /> </Button>

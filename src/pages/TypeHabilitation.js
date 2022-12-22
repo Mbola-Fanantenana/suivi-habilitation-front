@@ -75,8 +75,6 @@ export default function TypeHabilitation() {
 
     return (
         <div className='container'>
-            <br />
-            <br />
             <div className='row'>
                 <div className='mt-5 mb-4'>
                     <Button size='sm' variant='primary' onClick={() => { handleAddShow() }}>
@@ -145,7 +143,7 @@ export default function TypeHabilitation() {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleViewClose}>Close</Button>
+                        <Button size='sm' variant="secondary" onClick={handleViewClose}>fermer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -166,18 +164,18 @@ export default function TypeHabilitation() {
                         <div>
                             <div className='form-group'>
                                 <label>Code type habilitation :</label>
-                                <input type="text" className='form-control' onChange={(e) => setTypeHabCode(e.target.value)} placeholder="entrer code " />
+                                <input type="text" className='form-control' onChange={(e) => setTypeHabCode(e.target.value)} placeholder="entrer code " required />
                             </div>
                             <div className='form-group'>
                                 <label>Description type habilitation :</label>
-                                <input type="text" className='form-control' onChange={(e) => setTypeHabDesc(e.target.value)} placeholder="entrer description" />
+                                <input type="text" className='form-control' onChange={(e) => setTypeHabDesc(e.target.value)} placeholder="entrer description" required />
                             </div>
-                            <Button type='submit' className='btn btn-succes mt-4' onClick={handlePost}>Enregistrer</Button>
                         </div>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleAddClose}>Close</Button>
+                        <Button type='submit' size='sm' variant='success' onClick={handlePost}>Enregistrer</Button>
+                        <Button size='sm' variant="secondary" onClick={handleAddClose}>fermer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -209,10 +207,10 @@ export default function TypeHabilitation() {
                     <Modal.Footer>
                         {
                             deleteType && (
-                                <Button size='sm' variant='btn btn-danger mt-4' onClick={handleDelete}>Supprimer</Button>
+                                <Button size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
                             )
                         }
-                        <Button variant="secondary" onClick={handleDeleteClose}>Close</Button>
+                        <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

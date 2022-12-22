@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useNavigate, useParams } from 'react-router-dom'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 import { Card, Form, Row } from 'react-bootstrap';
 
 export default function Edit() {
@@ -66,7 +66,7 @@ export default function Edit() {
                                         <option>the dodo</option>
                                     </select>
                                 </Form.Group>
-                                <Form.Group>
+                                <Form.Group controlId='formGridAgence'>
                                     <Form.Label>
                                         Agence :
                                     </Form.Label>
@@ -78,6 +78,11 @@ export default function Edit() {
                                         onChange={handleChange}
                                     />
                                     <button type='submit' className="btn btn-primary">Valider</button>
+                                    <button className="btn btn-secondary">
+                                        <Link to={'/role'}>
+                                        </Link>
+                                        retour
+                                    </button>
                                 </Form.Group>
                             </Row>
                         </Form>

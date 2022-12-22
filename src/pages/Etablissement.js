@@ -73,8 +73,6 @@ export default function Etablissement() {
 
     return (
         <div className='container'>
-            <br />
-            <br />
             <div className='row'>
                 <div className='mt-5 mb-4'>
                     <Button size='sm' variant='primary' onClick={() => { handleAddShow() }}>
@@ -88,11 +86,10 @@ export default function Etablissement() {
             </div>
             <br />
             <div className='row'>
-
                 <Table striped bordered hover responsive size='sm'>
                     <thead>
                         <tr>
-                            <th>Code établissement</th>
+                            <th> Code établissement</th>
                             <th>Description établissement</th>
                             <th>Action</th>
                         </tr>
@@ -148,7 +145,7 @@ export default function Etablissement() {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleViewClose}>Close</Button>
+                        <Button size='sm' variant="secondary" onClick={handleViewClose}>fermer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -180,10 +177,10 @@ export default function Etablissement() {
                     <Modal.Footer>
                         {
                             etablissementDelete && (
-                                <Button size='sm' variant='btn btn-danger mt-4' onClick={handleDelete}>Supprimer</Button>
+                                <Button size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
                             )
                         }
-                        <Button variant="secondary" onClick={handleDeleteClose}>Close</Button>
+                        <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -210,12 +207,12 @@ export default function Etablissement() {
                                 <label>Description etablissement :</label>
                                 <input type="text" className='form-control' onChange={(e) => setEtabDesc(e.target.value)} placeholder="entrer description" />
                             </div>
-                            <Button type='submit' className='btn btn-succes mt-4' onClick={handlePost}>Enregistrer</Button>
                         </div>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleAddClose}>Close</Button>
+                        <Button type='submit' size='sm' variant='success' onClick={handlePost}>Enregistrer</Button>
+                        <Button size='sm' variant="secondary" onClick={handleAddClose}>fermer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>

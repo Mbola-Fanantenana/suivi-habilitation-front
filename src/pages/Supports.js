@@ -93,8 +93,6 @@ export default function Supports() {
 
     return (
         <div className='container'>
-            <br />
-            <br />
             <div className='row'>
                 <div className='mt-5 mb-4'>
                     <Button size='sm' variant='primary' onClick={() => { handleAddShow() }}>
@@ -160,7 +158,7 @@ export default function Supports() {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleViewClose}>Close</Button>
+                        <Button size='sm' variant="secondary" onClick={handleViewClose}>fermer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -192,10 +190,10 @@ export default function Supports() {
                     <Modal.Footer>
                         {
                             supportDelete && (
-                                <Button type='submit' className='btn btn-danger mt-4' onClick={handleDelete}>Supprimer role</Button>
+                                <Button type='submit' size='sm' variant='danger' onClick={handleDelete}>Supprimer role</Button>
                             )
                         }
-                        <Button variant="secondary" onClick={handleDeleteClose}>Close</Button>
+                        <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -222,12 +220,12 @@ export default function Supports() {
                                 <label>Description :</label>
                                 <input type="text" className='form-control' onChange={(e) => setSupportDesc(e.target.value)} placeholder="entrer description" />
                             </div>
-                            <Button type='submit' className='btn btn-succes mt-4' onClick={handlePost}>Enregistrer</Button>
                         </div>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleAddClose}>Close</Button>
+                        <Button type='submit' size='sm' variant='primary' onClick={handlePost}>Enregistrer</Button>
+                        <Button size='sm' variant="secondary" onClick={handleAddClose}>Close</Button>
                     </Modal.Footer>
                 </Modal>
             </div>
