@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { Card, Form, Row } from 'react-bootstrap';
+import { Button, Card, Form, Row } from 'react-bootstrap';
 
 export default function EditEtablissement() {
 
@@ -13,6 +13,7 @@ export default function EditEtablissement() {
 
     const { etabCode, etabDesc } = etablissement;
     const { etabId } = useParams();
+    const [validated, setValidated] = useState(false);
 
     const handleChange = (event) => {
         const { name, value } = event.currentTarget
@@ -23,7 +24,9 @@ export default function EditEtablissement() {
     }
 
     const updateEtablissement = async (e) => {
+
         e.preventDefault();
+        setValidated(true);
         await axios.put(`http://localhost:4000/api/updateEtablissement/${etabId}`, etablissement);
         navigate("/etablissement");
     }
@@ -55,7 +58,7 @@ export default function EditEtablissement() {
                         <h3><strong>Modification etablissement</strong></h3>
                     </Card.Header>
                     <Card.Body>
-                        <Form onSubmit={updateEtablissement}>
+                        <Form noValidate validated={validated} onSubmit={updateEtablissement}>
                             <Row className='mb-3'>
                                 <Form.Group controlId="formGridCode">
                                     <Form.Label>Code etablissement :</Form.Label>
@@ -65,6 +68,7 @@ export default function EditEtablissement() {
                                         name="etabCode"
                                         value={etabCode}
                                         onChange={handleChange}
+                                        required
                                     />
                                 </Form.Group>
                                 <Form.Group controlId="formGridDesc">
@@ -77,13 +81,14 @@ export default function EditEtablissement() {
                                         name="etabDesc"
                                         value={etabDesc}
                                         onChange={handleChange}
+                                        required
                                     />
-                                    <button type='submit' className="btn btn-primary m-3">Enregistrer</button>
-                                    <button className="btn btn-secondary">
+                                    <Button type='submit' size='sm' variant="primary">Enregistrer</Button>
+                                    <Button size='sm' variant="secondary">
                                         <Link to={'/etablissement'}>
                                         </Link>
                                         retour
-                                    </button>
+                                    </Button>
                                 </Form.Group>
                             </Row>
                         </Form>

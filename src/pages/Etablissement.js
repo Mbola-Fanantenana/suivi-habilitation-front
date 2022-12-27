@@ -136,10 +136,10 @@ export default function Etablissement() {
                     <Modal.Body>
                         <div>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowEtab.etabCode} readOnly />
+                                <strong>Code établissement : </strong> {rowEtab.etabCode}
                             </div>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowEtab.etabDesc} readOnly />
+                                <strong>Description : </strong>{rowEtab.etabDesc}
                             </div>
                         </div>
                     </Modal.Body>
@@ -166,21 +166,23 @@ export default function Etablissement() {
                         <div>
                             <h4>Vouler vous vraiment supprimer ?</h4>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowEtab.etabCode} readOnly />
+                                <strong>Code établissement: </strong> {rowEtab.etabCode}
                             </div>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowEtab.etabDesc} readOnly />
+                                <strong>Description : </strong>{rowEtab.etabDesc}
                             </div>
                         </div>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        {
-                            etablissementDelete && (
-                                <Button size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
-                            )
-                        }
-                        <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
+                        <ButtonGroup>
+                            {
+                                etablissementDelete && (
+                                    <Button size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
+                                )
+                            }
+                            <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
+                        </ButtonGroup>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -211,8 +213,10 @@ export default function Etablissement() {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button type='submit' size='sm' variant='success' onClick={handlePost}>Enregistrer</Button>
-                        <Button size='sm' variant="secondary" onClick={handleAddClose}>fermer</Button>
+                        <ButtonGroup>
+                            <Button type='submit' size='sm' variant='success' onClick={handlePost}>Enregistrer</Button>
+                            <Button size='sm' variant="secondary" onClick={handleAddClose}>fermer</Button>
+                        </ButtonGroup>
                     </Modal.Footer>
                 </Modal>
             </div>

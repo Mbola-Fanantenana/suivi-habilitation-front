@@ -148,11 +148,11 @@ export default function Supports() {
 
                     <Modal.Body>
                         <div>
-                            <div className='form-group'>
-                                <input type="text" className='form-control' value={rowRoleShow.supportCode} readOnly />
+                        <div className='form-group'>
+                                <strong>Code support : </strong>{rowRoleShow.supportCode}
                             </div>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowRoleShow.supportDesc} readOnly />
+                                <strong>Description : </strong>{rowRoleShow.supportDesc} 
                             </div>
                         </div>
                     </Modal.Body>
@@ -179,21 +179,23 @@ export default function Supports() {
                         <div>
                             <h4>Vouler vous vraiment supprimer ?</h4>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowRoleShow.supportCode} readOnly />
+                                <strong>Code support : </strong>{rowRoleShow.supportCode}
                             </div>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowRoleShow.supportDesc} readOnly />
+                                <strong>Description : </strong>{rowRoleShow.supportDesc} 
                             </div>
                         </div>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        {
-                            supportDelete && (
-                                <Button type='submit' size='sm' variant='danger' onClick={handleDelete}>Supprimer role</Button>
-                            )
-                        }
-                        <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
+                        <ButtonGroup>
+                            {
+                                supportDelete && (
+                                    <Button type='submit' size='sm' variant='danger' onClick={handleDelete}>Supprimerfj</Button>
+                                )
+                            }
+                            <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
+                        </ButtonGroup>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -224,43 +226,15 @@ export default function Supports() {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button type='submit' size='sm' variant='primary' onClick={handlePost}>Enregistrer</Button>
-                        <Button size='sm' variant="secondary" onClick={handleAddClose}>Close</Button>
+                        <ButtonGroup>
+                            <Button type='submit' size='sm' variant='primary' onClick={handlePost}>Enregistrer</Button>
+                            <Button size='sm' variant="secondary" onClick={handleAddClose}>Close</Button>
+                        </ButtonGroup>
                     </Modal.Footer>
                 </Modal>
             </div>
 
-            {/* Modal for edit */}
-            {/* <div className='model-box-view'>
-                <Modal
-                    show={viewEdit}
-                    onHide={handleEditClose}
-                    backdrop="static"
-                    keyboard={false}
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modifier support</Modal.Title>
-                    </Modal.Header>
 
-                    <Modal.Body>
-                        <div>
-                            <div className='form-group'>
-                                <label>Support code :</label>
-                                <input type="text" className='form-control' name='roleFonction' onChange={(e) => setSupportCode(e.target.value)} placeholder="entrer fonction titulaire" defaultValue={rowRoleShow.supportCode} />
-                            </div>
-                            <div className='form-group'>
-                                <label>Description :</label>
-                                <input type="text" className='form-control' name='roleLieu' onChange={(e) => setSupportDesc(e.target.value)} placeholder="entrer description" defaultValue={rowRoleShow.supportDesc} />
-                            </div>
-                            <Button className='btn btn-succes mt-4' onClick={handleEdit}>Enregistrer</Button>
-                        </div>
-                    </Modal.Body>
-
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleEditClose}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div> */}
         </div >
     )
 }

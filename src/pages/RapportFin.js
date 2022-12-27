@@ -4,6 +4,8 @@ import axios from 'axios';
 export default function RapportFin() {
 
     const [viewHabilitations, setViewHabilitations] = useState([]);
+    const [search, setSearch] = useState('');
+    console.log(search);
 
     const loadViewHabilitation = async () => {
         const result = await axios.get("http://localhost:4000/api/vHabilitations");
@@ -18,6 +20,9 @@ export default function RapportFin() {
     return (
         <div className='container'>
             <div className='row'>
+                <div className='form-group mb-4'>
+                    <input type='text' className='form-control' onChange={(e) => setSearch(e.target.value)} placeholder='rechercher ...' />
+                </div>
                 <div className='table-responsive'>
                     <table className='table table-striped table-hover table-bordered'>
                         <thead>
@@ -31,7 +36,11 @@ export default function RapportFin() {
                         </thead>
                         <tbody>
                             {
-                                viewHabilitations.map((item) => (
+                                viewHabilitations.filter((item) => {
+                                    return search.toLowerCase() === ''
+                                        ? item
+                                        : item.persCodeExp.toLowerCase().includes(search);
+                                }).map((item) => (
                                     <tr>
                                         <td>{item.etabCode}</td>
                                         <td>{item.persCodeExp}</td>

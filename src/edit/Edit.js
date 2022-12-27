@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { Card, Form, Row } from 'react-bootstrap';
+import { Button, ButtonGroup, Card, Form, Row } from 'react-bootstrap';
 
 export default function Edit() {
 
@@ -77,13 +77,15 @@ export default function Edit() {
                                         value={roleLieu}
                                         onChange={handleChange}
                                     />
-                                    <button type='submit' className="btn btn-primary">Valider</button>
-                                    <button className="btn btn-secondary">
+                                </Form.Group>
+                                <ButtonGroup>
+                                    <Button type='submit' variant="primary">Valider</Button>
+                                    <Button variant="secondary">
                                         <Link to={'/role'}>
                                         </Link>
                                         retour
-                                    </button>
-                                </Form.Group>
+                                    </Button>
+                                </ButtonGroup>
                             </Row>
                         </Form>
                     </Card.Body>

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Card, Form, Row, Col } from 'react-bootstrap';
 
 export default function EditPersonnel() {
@@ -113,6 +113,11 @@ export default function EditPersonnel() {
                                 </Form.Group>
                             </Row>
                             <button type='submit' className="btn btn-primary">Valider</button>
+                            <button className="btn btn-secondary">
+                                <Link to={'/personnel'}>
+                                </Link>
+                                retour
+                            </button>
                         </Form>
                     </Card.Body>
                 </Card>

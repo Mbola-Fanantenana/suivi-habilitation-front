@@ -51,7 +51,7 @@ function App() {
             <Link to="/habilitation" class="logo d-flex align-items-center">
               <span class="d-none d-lg-block">Habilitation</span>
             </Link>
-            <i class="bi bi-list toggle-sidebar-btn"></i>
+            {/* <i class="bi bi-list toggle-sidebar-btn"></i> */}
           </div>
 
           <nav class="header-nav ms-auto">
@@ -104,7 +104,13 @@ function App() {
         <aside id="sidebar" class="sidebar">
 
           <ul class="sidebar-nav" id="sidebar-nav">
-
+            <li class="nav-item">
+              <Link class="nav-link collapsed" to="/habilitation">
+                <i class="bi bi-grid"></i>
+                <span>Habilitation</span>
+              </Link>
+            </li>
+            
             <li class="nav-item">
               <Link class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-journal-text"></i><span>Données de base</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -133,12 +139,6 @@ function App() {
               </ul>
             </li>
 
-            <li class="nav-item">
-              <Link class="nav-link collapsed" to="/habilitation">
-                <i class="bi bi-grid"></i>
-                <span>Habilitation</span>
-              </Link>
-            </li>
 
             {/* <li class="nav-heading">Autres pages</li> */}
 

@@ -16,14 +16,6 @@ export default function Roles() {
     const handleViewClose = () => {
         setViewShow(false);
     }
-    //Edit role
-    // const [viewEdit, setViewEdit] = useState(false);
-    // const handleEditShow = () => {
-    //     setViewEdit(true);
-    // }
-    // const handleEditClose = () => {
-    //     setViewEdit(false);
-    // }
 
     //Delete role
     const [viewDelete, setViewDelete] = useState(false);
@@ -140,21 +132,23 @@ export default function Roles() {
                         <div>
                             <h4>Vouler vous vraiment supprimer ?</h4>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowRoleShow.roleFonction} readOnly />
+                                <strong>Fonction : </strong>{rowRoleShow.roleFonction}
                             </div>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowRoleShow.roleLieu} readOnly />
+                                <strong>Lieu : </strong>{rowRoleShow.roleLieu}
                             </div>
                         </div>
                     </Modal.Body>
 
                     <Modal.Footer>
-                        {
-                            roleDelete && (
-                                <Button type='submit' size='sm' variant='danger' onClick={handleDelete}>Supprimer role</Button>
-                            )
-                        }
-                        <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
+                        <ButtonGroup>
+                            {
+                                roleDelete && (
+                                    <Button type='submit' size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
+                                )
+                            }
+                            <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
+                        </ButtonGroup>
                     </Modal.Footer>
                 </Modal>
             </div>
@@ -174,10 +168,10 @@ export default function Roles() {
                     <Modal.Body>
                         <div>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowRoleShow.roleFonction} readOnly />
+                                <strong>Fonction : </strong>{rowRoleShow.roleFonction}
                             </div>
                             <div className='form-group'>
-                                <input type="text" className='form-control' value={rowRoleShow.roleLieu} readOnly />
+                                <strong>Lieu : </strong>{rowRoleShow.roleLieu}
                             </div>
                         </div>
                     </Modal.Body>
@@ -214,43 +208,14 @@ export default function Roles() {
                     </Modal.Body>
 
                     <Modal.Footer>
-                        <Button type='submit' size='sm' variant='success' onClick={handlePost}>Enregistrer</Button>
-                        <Button size='sm' variant="secondary" onClick={handleAddClose}>fermer</Button>
+                        <ButtonGroup>
+                            <Button type='submit' size='sm' variant='success' onClick={handlePost}>Enregistrer</Button>
+                            <Button size='sm' variant="secondary" onClick={handleAddClose}>fermer</Button>
+                        </ButtonGroup>
                     </Modal.Footer>
                 </Modal>
             </div>
 
-            {/* Modal for edit */}
-            {/* <div className='model-box-view'>
-                <Modal
-                    show={viewEdit}
-                    onHide={handleEditClose}
-                    backdrop="static"
-                    keyboard={false}
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Modifier role</Modal.Title>
-                    </Modal.Header>
-
-                    <Modal.Body>
-                        <div>
-                            <div className='form-group'>
-                                <label>Fonction titulaire :</label>
-                                <input type="text" className='form-control' onChange={(e) => setRoleFonction(e.target.value)} defaultValue={rowRoleShow.roleFonction} placeholder="entrer fonction titulaire" />
-                            </div>
-                            <div className='form-group'>
-                                <label>Description :</label>
-                                <input type="text" className='form-control' onChange={(e) => setRoleLieu(e.target.value)} defaultValue={rowRoleShow.roleLieu} placeholder="entrer description" />
-                            </div>
-                            <Button type='submit' className='btn btn-secondary mt-4' onClick={handleEdit}>Enregistrer</Button>
-                        </div>
-                    </Modal.Body>
-
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleEditClose}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div> */}
         </div>
     )
 }
