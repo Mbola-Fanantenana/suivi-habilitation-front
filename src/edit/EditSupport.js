@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { Card, Form, Row } from 'react-bootstrap';
+import { Button, ButtonGroup, Card, Form, Row } from 'react-bootstrap';
 
 export default function EditSupport() {
 
@@ -79,12 +79,14 @@ export default function EditSupport() {
                                         value={supportDesc}
                                         onChange={handleChange}
                                     />
-                                    <button type='submit' className="btn btn-primary m-3">Valider</button>
-                                    <button className="btn btn-secondary">
-                                        <Link to={'/support'}>
-                                        </Link>
-                                        retour
-                                    </button>
+                                    <ButtonGroup className='mt-3'>
+                                        <Button type='submit' variant="primary">Valider</Button>
+                                        <Button variant="secondary">
+                                            <Link to={'/support'}>
+                                            </Link>
+                                            retour
+                                        </Button>
+                                    </ButtonGroup>
                                 </Form.Group>
                             </Row>
                         </Form>
