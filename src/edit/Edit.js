@@ -77,15 +77,15 @@ export default function Edit() {
                                         value={roleLieu}
                                         onChange={handleChange}
                                     />
+                                    <ButtonGroup className='mt-3'>
+                                        <Button type='submit' variant="primary">Valider</Button>
+                                        <Button variant="secondary">
+                                            <Link to={'/role'}>
+                                            </Link>
+                                            retour
+                                        </Button>
+                                    </ButtonGroup>
                                 </Form.Group>
-                                <ButtonGroup>
-                                    <Button type='submit' variant="primary">Valider</Button>
-                                    <Button variant="secondary">
-                                        <Link to={'/role'}>
-                                        </Link>
-                                        retour
-                                    </Button>
-                                </ButtonGroup>
                             </Row>
                         </Form>
                     </Card.Body>
