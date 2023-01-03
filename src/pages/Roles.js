@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, ButtonGroup, Card, Modal, Table } from 'react-bootstrap'
+import { Button, ButtonGroup, Card, Modal, Table, FloatingLabel, Form } from 'react-bootstrap'
 import axios from 'axios'
 import { Link } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -71,6 +71,7 @@ export default function Roles() {
 
     useEffect(() => {
         loadRoles();
+        document.title = "Fonction | Habilitation";
     }, []);
 
     return (
@@ -196,14 +197,21 @@ export default function Roles() {
 
                     <Modal.Body>
                         <div>
-                            <div className='form-group'>
+                            <FloatingLabel controlId='toto' label='Fonction titulaire' className='mb-3'>
+                                <Form.Control type='text' onChange={(e) => setRoleFonction(e.target.value)} placeholder='Fonction titulaire' />
+                            </FloatingLabel>
+
+                            <FloatingLabel controlId='toto' label='Description fonction' className='mb-3'>
+                                <Form.Control type='text' onChange={(e) => setRoleLieu(e.target.value)} placeholder='Description fonction' />
+                            </FloatingLabel>
+                            {/* <div className='form-group'>
                                 <label>Fonction titulaire :</label>
                                 <input type="text" className='form-control' onChange={(e) => setRoleFonction(e.target.value)} placeholder="entrer fonction titulaire" />
                             </div>
                             <div className='form-group'>
                                 <label>Description :</label>
                                 <input type="text" className='form-control' onChange={(e) => setRoleLieu(e.target.value)} placeholder="entrer description" />
-                            </div>
+                            </div> */}
                         </div>
                     </Modal.Body>
 

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Button, ButtonGroup, Card, Col, Form, ListGroup, Modal, Row, Table } from 'react-bootstrap'
+import { Button, ButtonGroup, Card, Col, Form, FloatingLabel, Modal, Row, Table } from 'react-bootstrap'
 import { Link, useParams } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPenToSquare, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -19,8 +19,9 @@ export default function Personnel() {
     const [persNumTel, setPersNumTel] = useState("");
     const [persEmail, setPersEmail] = useState("");
     const [persId, setPersId] = useState("");
-    // const [roleId, setRolesId] = useState("");
-    const { roleId } = useParams();
+
+    const [roleId, setRolesId] = useState("");
+    //const { roleId } = useParams();
     const [deletePersonnel, setDeletePersonnel] = useState(false);
 
     const personnelInfo = { persCodeExp, persNom, persPrenom, persLogin, persMat, persCIN, persNumTel, persEmail, roleId };
@@ -80,7 +81,7 @@ export default function Personnel() {
     }
 
     const hangleChange = (event) => {
-        setRoles(event.target.value);
+        setRolesId(event.target.value);
     }
     //function get all personnel
     const loadPersonnels = async () => {
@@ -92,6 +93,7 @@ export default function Personnel() {
     useEffect(() => {
         loadPersonnels();
         loadRoles();
+        document.title = "Personnel | Habilitation";
     }, [])
 
     return (
@@ -264,6 +266,14 @@ export default function Personnel() {
                         <Modal.Body>
                             <Form>
                                 <Row className="mb-3">
+                                    {/* <FloatingLabel as={Col} controlId='toto' label='Code exploitant' className='mb-3'>
+                                        <Form.Control type='text' onChange={(e) => setPersCodeExp(e.target.value)} placeholder='Code exploitant' />
+                                    </FloatingLabel>
+
+                                    <FloatingLabel as={Col} controlId='toto' label='Nom' className='mb-3'>
+                                        <Form.Control type='text' onChange={(e) => setPersNom(e.target.value)} placeholder='Nom' />
+                                    </FloatingLabel> */}
+                                    {/* ************************************* */}
                                     <Form.Group as={Col} controlId="formGridCode">
                                         <Form.Label>Code exploitant :</Form.Label>
                                         <Form.Control type="text" onChange={(e) => setPersCodeExp(e.target.value)} placeholder="entrer code " />
@@ -279,11 +289,11 @@ export default function Personnel() {
                                         <Form.Control type="text" onChange={(e) => setPersPrenom(e.target.value)} placeholder="entrer prénom" />
                                     </Form.Group>
                                     <Form.Group as={Col}>
-                                        <label>Fonction titulaire :</label>
+                                        <Form.Label>Fonction titulaire :</Form.Label>
                                         <select className='form-control'>
                                             {
                                                 roles.map((item) => (
-                                                    <option onChange={hangleChange}>{item.roleFonction}</option>
+                                                    <option value={item} key={item} onChange={e => setRolesId(e.target.value)} >{item.roleId}</option>
                                                 ))
                                             }
                                         </select>

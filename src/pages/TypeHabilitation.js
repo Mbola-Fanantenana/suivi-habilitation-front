@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Button, ButtonGroup, Modal, Table } from 'react-bootstrap'
+import { Button, ButtonGroup, Modal, Table, FloatingLabel, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPenToSquare, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -71,6 +71,7 @@ export default function TypeHabilitation() {
 
     useEffect(() => {
         loadTypeHabilitations();
+        document.title = "Type d'habilitation | Habilitation";
     }, [])
 
     return (
@@ -162,14 +163,21 @@ export default function TypeHabilitation() {
 
                     <Modal.Body>
                         <div>
-                            <div className='form-group'>
+                            <FloatingLabel controlId='toto' label='Code type habilitation' className='mb-3'>
+                                <Form.Control type='text' onChange={(e) => setTypeHabCode(e.target.value)} placeholder='Code type habilitation' />
+                            </FloatingLabel>
+
+                            <FloatingLabel controlId='toto' label='Description type habilitation' className='mb-3'>
+                                <Form.Control type='text' onChange={(e) => setTypeHabDesc(e.target.value)} placeholder='Description type habilitation' />
+                            </FloatingLabel>
+                            {/* <div className='form-group'>
                                 <label>Code type habilitation :</label>
                                 <input type="text" className='form-control' onChange={(e) => setTypeHabCode(e.target.value)} placeholder="entrer code " required />
                             </div>
                             <div className='form-group'>
                                 <label>Description type habilitation :</label>
                                 <input type="text" className='form-control' onChange={(e) => setTypeHabDesc(e.target.value)} placeholder="entrer description" required />
-                            </div>
+                            </div> */}
                         </div>
                     </Modal.Body>
 

@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Button, ButtonGroup, Card, Modal, Table } from 'react-bootstrap'
+import { Button, ButtonGroup, Card, Modal, Table, Form } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPenToSquare, faTrash, faPlus, faCheck, faList, faSpinner } from '@fortawesome/free-solid-svg-icons';
+import { Link } from 'react-router-dom';
+import Chart from './Chart';
 
 export default function Habilitation() {
 
@@ -72,6 +74,7 @@ export default function Habilitation() {
         loadVtotal();
         loadEncours();
         loadTermine();
+        document.title = "Habilitation";
     }, [])
 
     return (
@@ -111,7 +114,7 @@ export default function Habilitation() {
                 <div className='col-md-4'>
                     <Card>
                         <Card.Header>
-                        <FontAwesomeIcon icon={faCheck} /> Habilitation terminé : 
+                            <FontAwesomeIcon icon={faCheck} /> Habilitation terminé :
                         </Card.Header>
                         <Card.Body>
                             {
@@ -142,14 +145,14 @@ export default function Habilitation() {
                             <th>Code Exp</th>
                             <th>Fonction titulaire</th>
                             <th>Fonction interimaire</th>
+                            <th>Code agence</th>
                             <th>Type habilitation</th>
                             <th>Support</th>
                             <th>Caisse</th>
-                            <th>Code agence</th>
                             <th>Date début</th>
                             <th>Date fin</th>
-                            <th>Statut fin</th>
                             <th>Statut début</th>
+                            <th>Statut fin</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -165,15 +168,19 @@ export default function Habilitation() {
                                     <td>{item.persCodeExp}</td>
                                     <td>{item.roleFonction}</td>
                                     <td>{item.foncInterim}</td>
+                                    <td>{item.etabCode}</td>
                                     <td>{item.typeHabCode}</td>
                                     <td>{item.supportCode}</td>
                                     <td>{item.habCaisse}</td>
-                                    <td>{item.etabCode}</td>
                                     <td>{item.habDateDebut}</td>
                                     <td>{item.habDateFin}</td>
-                                    <td>{item.statusDebut}</td>
                                     <td>
-                                        {item.statusFin}
+                                        <Form.Check type="switch" id="custom" checked={item.statusDebut} />
+
+                                    </td>
+                                    <td>
+                                        <Form.Check type="switch" id="custom" checked={item.statusFin} />
+
                                     </td>
                                     <td>
                                         <ButtonGroup aria-label='Basic example'>

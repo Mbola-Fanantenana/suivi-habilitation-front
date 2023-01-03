@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Button, Modal, ButtonGroup, Table } from 'react-bootstrap'
+import { Button, Modal, ButtonGroup, Table, FloatingLabel, Form } from 'react-bootstrap'
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faPlus, faEye, faPenToSquare } from '@fortawesome/free-solid-svg-icons';
@@ -69,6 +69,7 @@ export default function Etablissement() {
 
     useEffect(() => {
         loadEtablissement();
+        document.title = "Etablissement | Habilitation";
     }, [])
 
     return (
@@ -90,7 +91,7 @@ export default function Etablissement() {
                     <thead>
                         <tr>
                             <th> Code établissement</th>
-                            <th>Description établissement</th>
+                            <th>Emplacement</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -139,7 +140,7 @@ export default function Etablissement() {
                                 <strong>Code établissement : </strong> {rowEtab.etabCode}
                             </div>
                             <div className='form-group'>
-                                <strong>Description : </strong>{rowEtab.etabDesc}
+                                <strong>Emplacement : </strong>{rowEtab.etabDesc}
                             </div>
                         </div>
                     </Modal.Body>
@@ -169,7 +170,7 @@ export default function Etablissement() {
                                 <strong>Code établissement: </strong> {rowEtab.etabCode}
                             </div>
                             <div className='form-group'>
-                                <strong>Description : </strong>{rowEtab.etabDesc}
+                                <strong>Emplacement : </strong>{rowEtab.etabDesc}
                             </div>
                         </div>
                     </Modal.Body>
@@ -201,14 +202,21 @@ export default function Etablissement() {
 
                     <Modal.Body>
                         <div>
-                            <div className='form-group'>
+                            <FloatingLabel controlId='toto' label='Code etablissement' className='mb-3'>
+                                <Form.Control type='text' onChange={(e) => setEtabCode(e.target.value)} placeholder='Code etablissement' />
+                            </FloatingLabel>
+
+                            <FloatingLabel controlId='toto' label='Emplacement' className='mb-3'>
+                                <Form.Control type='text' onChange={(e) => setEtabDesc(e.target.value)} placeholder='Emplacement' />
+                            </FloatingLabel>
+                            {/* <div className='form-group'>
                                 <label>Code etablissement :</label>
                                 <input type="text" className='form-control' onChange={(e) => setEtabCode(e.target.value)} placeholder="entrer code etablissement" />
                             </div>
                             <div className='form-group'>
-                                <label>Description etablissement :</label>
+                                <label>Emplacement :</label>
                                 <input type="text" className='form-control' onChange={(e) => setEtabDesc(e.target.value)} placeholder="entrer description" />
-                            </div>
+                            </div> */}
                         </div>
                     </Modal.Body>
 

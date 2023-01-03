@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
+import { Table } from 'react-bootstrap';
 
 export default function RapportFin() {
 
@@ -15,6 +16,7 @@ export default function RapportFin() {
 
     useEffect(() => {
         loadViewHabilitation();
+        document.title = "Rapport fin | Hablitation";
     }, [])
 
     return (
@@ -24,7 +26,7 @@ export default function RapportFin() {
                     <input type='text' className='form-control' onChange={(e) => setSearch(e.target.value)} placeholder='rechercher ...' />
                 </div>
                 <div className='table-responsive'>
-                    <table className='table table-striped table-hover table-bordered'>
+                    <Table striped bordered hover responsive size='sm'>
                         <thead>
                             <tr>
                                 <th>Code etablissement</th>
@@ -51,7 +53,7 @@ export default function RapportFin() {
                                 ))
                             }
                         </tbody>
-                    </table>
+                    </Table>
                 </div>
             </div>
         </div>

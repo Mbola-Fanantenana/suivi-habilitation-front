@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Button, ButtonGroup, Modal, Table } from 'react-bootstrap';
+import { Button, ButtonGroup, FloatingLabel, Form, Modal, Table } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPenToSquare, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
@@ -89,6 +89,7 @@ export default function Supports() {
 
     useEffect(() => {
         loadSupports();
+        document.title = "Support | Habilitation";
     }, []);
 
     return (
@@ -107,7 +108,7 @@ export default function Supports() {
                 <Table striped bordered hover responsive size='sm'>
                     <thead>
                         <tr>
-                            <th>Support code</th>
+                            <th>Code de support</th>
                             <th>Support description</th>
                             <th>Action</th>
                         </tr>
@@ -148,11 +149,11 @@ export default function Supports() {
 
                     <Modal.Body>
                         <div>
-                        <div className='form-group'>
+                            <div className='form-group'>
                                 <strong>Code support : </strong>{rowRoleShow.supportCode}
                             </div>
                             <div className='form-group'>
-                                <strong>Description : </strong>{rowRoleShow.supportDesc} 
+                                <strong>Description : </strong>{rowRoleShow.supportDesc}
                             </div>
                         </div>
                     </Modal.Body>
@@ -182,7 +183,7 @@ export default function Supports() {
                                 <strong>Code support : </strong>{rowRoleShow.supportCode}
                             </div>
                             <div className='form-group'>
-                                <strong>Description : </strong>{rowRoleShow.supportDesc} 
+                                <strong>Description : </strong>{rowRoleShow.supportDesc}
                             </div>
                         </div>
                     </Modal.Body>
@@ -191,7 +192,7 @@ export default function Supports() {
                         <ButtonGroup>
                             {
                                 supportDelete && (
-                                    <Button type='submit' size='sm' variant='danger' onClick={handleDelete}>Supprimerfj</Button>
+                                    <Button type='submit' size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
                                 )
                             }
                             <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
@@ -214,17 +215,24 @@ export default function Supports() {
 
                     <Modal.Body>
                         <div>
-                            <div className='form-group'>
+                            <FloatingLabel controlId='toto' label='code du support' className='mb-3'>
+                                <Form.Control type='text' onChange={(e) => setSupportCode(e.target.value)} placeholder='code du support' />
+                            </FloatingLabel>
+
+                            <FloatingLabel controlId='toto' label='description du support' className='mb-3'>
+                                <Form.Control type='text' onChange={(e) => setSupportDesc(e.target.value)} placeholder='description du support' />
+                            </FloatingLabel>
+                            {/* <div className='form-group'>
                                 <label>Support code :</label>
-                                <input type="text" className='form-control' onChange={(e) => setSupportCode(e.target.value)} placeholder="entrer fonction titulaire" />
-                            </div>
-                            <div className='form-group'>
+                                <input type="text" className='form-control' onChange={(e) => setSupportCode(e.target.value)} placeholder="entrer fonction titulaire" required />
+                            </div> */}
+                            {/* <div className='form-group'>
                                 <label>Description :</label>
-                                <input type="text" className='form-control' onChange={(e) => setSupportDesc(e.target.value)} placeholder="entrer description" />
-                            </div>
+                                <input type="text" className='form-control' onChange={(e) => setSupportDesc(e.target.value)} placeholder="entrer description" required />
+                            </div> */}
                         </div>
                     </Modal.Body>
-
+                            
                     <Modal.Footer>
                         <ButtonGroup>
                             <Button type='submit' size='sm' variant='primary' onClick={handlePost}>Enregistrer</Button>
