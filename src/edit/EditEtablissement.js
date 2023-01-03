@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom'
-import { Button, Card, Form, Row } from 'react-bootstrap';
+import { Button, ButtonGroup, Card, Form, Row } from 'react-bootstrap';
 
 export default function EditEtablissement() {
 
@@ -83,12 +83,14 @@ export default function EditEtablissement() {
                                         onChange={handleChange}
                                         required
                                     />
+                                    <ButtonGroup className='mt-3'>
                                     <Button type='submit' size='sm' variant="primary">Enregistrer</Button>
                                     <Button size='sm' variant="secondary">
                                         <Link to={'/etablissement'}>
                                         </Link>
                                         retour
                                     </Button>
+                                    </ButtonGroup>
                                 </Form.Group>
                             </Row>
                         </Form>
