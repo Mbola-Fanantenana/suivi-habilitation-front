@@ -35,7 +35,7 @@ export default function ChartPie() {
                         cy={150}
                         innerRadius={70}
                         outerRadius={120}
-                        fill="#8884d8"
+                        fill="#0C64E9"
                         label
                     />
                     <Tooltip />

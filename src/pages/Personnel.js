@@ -173,7 +173,7 @@ export default function Personnel() {
                         <div className='col-md-4 mb-3'>
                             <Card style={{ height: '100%' }}>
                                 <Card.Header>
-                                    <strong>Code exploitant : {item.persCodeExp}</strong>
+                                    <strong>Code exploitant : {item.persCodeExp}</strong> 
                                 </Card.Header>
                                 <Card.Body>
                                     <Card.Text><strong>Nom : </strong>{item.persNom}</Card.Text>
@@ -260,20 +260,12 @@ export default function Personnel() {
                         keyboard={false}
                     >
                         <Modal.Header closeButton>
-                            <Modal.Title>Ajouter etablissement</Modal.Title>
+                            <Modal.Title>Ajouter Personnel</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>
                             <Form>
                                 <Row className="mb-3">
-                                    {/* <FloatingLabel as={Col} controlId='toto' label='Code exploitant' className='mb-3'>
-                                        <Form.Control type='text' onChange={(e) => setPersCodeExp(e.target.value)} placeholder='Code exploitant' />
-                                    </FloatingLabel>
-
-                                    <FloatingLabel as={Col} controlId='toto' label='Nom' className='mb-3'>
-                                        <Form.Control type='text' onChange={(e) => setPersNom(e.target.value)} placeholder='Nom' />
-                                    </FloatingLabel> */}
-                                    {/* ************************************* */}
                                     <Form.Group as={Col} controlId="formGridCode">
                                         <Form.Label>Code exploitant :</Form.Label>
                                         <Form.Control type="text" onChange={(e) => setPersCodeExp(e.target.value)} placeholder="entrer code " />
@@ -313,7 +305,7 @@ export default function Personnel() {
                                 <Row className="mb-3">
                                     <Form.Group as={Col} controlId="formGridCIN">
                                         <Form.Label>Numéro CIN :</Form.Label>
-                                        <Form.Control type="text" onChange={(e) => setPersCIN(e.target.value)} placeholder="entrer numéro CIN" />
+                                        <Form.Control type="text" onChange={(e) => setPersCIN(e.target.value)} maxLength="12" placeholder="entrer numéro CIN" />
                                     </Form.Group>
                                     <Form.Group as={Col} controlId="formGridNum">
                                         <Form.Label>Numéro téléphone :</Form.Label>
@@ -349,7 +341,7 @@ export default function Personnel() {
                         keyboard={false}
                     >
                         <Modal.Header closeButton>
-                            <Modal.Title>Détails</Modal.Title>
+                            <Modal.Title>Suppression</Modal.Title>
                         </Modal.Header>
 
                         <Modal.Body>
@@ -365,7 +357,7 @@ export default function Personnel() {
                                         <Button size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
                                     )
                                 }
-                                <Button size='sm' variant="secondary" onClick={handleDeleteClose}>fermer</Button>
+                                <Button size='sm' variant="secondary" onClick={handleDeleteClose}>Annuler</Button>
                             </ButtonGroup>
                         </Modal.Footer>
                     </Modal>

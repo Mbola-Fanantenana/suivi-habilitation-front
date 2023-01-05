@@ -35,7 +35,7 @@ export default function Chart() {
                     <YAxis />
                     <Tooltip />
                     <Legend />
-                    <Bar dataKey="total" fill="#8884d8" />
+                    <Bar dataKey="total" fill="#0C64E9" />
                 </BarChart>
             </ResponsiveContainer>
         </div>
