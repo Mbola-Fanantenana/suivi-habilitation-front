@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom';
 import { Card, Form, Row, Col, ButtonGroup, Button } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 export default function EditPersonnel() {
 
@@ -20,6 +21,43 @@ export default function EditPersonnel() {
     const { persCodeExp, persNom, persPrenom, persLogin, persMat, persCIN, persNumTel, persEmail } = personnel;
     const { persId } = useParams();
 
+    const validate = () => {
+        let result = true;
+        if (persCodeExp === '' || persCodeExp === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (persNom === '' || persNom === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (persPrenom === '' || persPrenom === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (persLogin === '' || persLogin === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (persMat === '' || persMat === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (persCIN === '' || persCIN === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (persNumTel === '' || persNumTel === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (persEmail === '' || persEmail === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        return result;
+    }
+
     const handleChange = (event) => {
         const { name, value } = event.currentTarget
         setPersonnel({
@@ -31,8 +69,11 @@ export default function EditPersonnel() {
     //function edit personnel
     const updatePersonnel = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:4000/api/updatePersonnel/${persId}`, personnel);
-        navigate("/personnel");
+        if (validate()) {            
+            await axios.put(`http://localhost:4000/api/updatePersonnel/${persId}`, personnel);
+            navigate("/personnel");
+            toast.success('Modification réussie');
+        }
     }
 
     const loadPersonnel = async () => {

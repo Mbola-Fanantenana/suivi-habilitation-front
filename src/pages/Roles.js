@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { Button, ButtonGroup, Card, Modal, Table, FloatingLabel, Form } from 'react-bootstrap'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPenToSquare, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { toast } from 'react-toastify';
 
 export default function Roles() {
 
@@ -36,11 +37,12 @@ export default function Roles() {
     }
 
     const [roleFonction, setRoleFonction] = useState("");
-    const [roleLieu, setRoleLieu] = useState("");
+    const [roleDesc, setRoleDesc] = useState("");
     const [roleId, setRoleId] = useState("");
     const [roleDelete, setRoleDelete] = useState(false);
 
-    const credentials = { roleFonction, roleLieu };
+
+    const credentials = { roleFonction, roleDesc };
 
     const loadRoles = async () => {
         const result = await axios.get('http://localhost:4000/api/roles');
@@ -49,24 +51,20 @@ export default function Roles() {
     }
     //Add function
     const handlePost = () => {
-        const url = 'http://localhost:4000/api/saveRole';
-        axios.post(url, credentials);
-        loadRoles();
-        window.location.reload();
+        const url = 'http://localhost:4000/api/saveRole';         
+            axios.post(url, credentials);
+            loadRoles();
+            window.location.reload();
+            toast.success('Ajout fonction réussie');
     }
-
-    // const handleEdit = async (e) => {
-    //     e.preventDefault();
-    //     const url = `http://localhost:4000/api/updateRole/${roleId}`;
-    //     await axios.put(url, credentials);
-    //     window.location.reload();
-    // }
 
     const handleDelete = () => {
         const url = `http://localhost:4000/api/deleteRole/${roleId}`;
         axios.delete(url);
         loadRoles();
+        toast.success('suppression réussie');
         window.location.reload();
+        
     }
 
     useEffect(() => {
@@ -99,7 +97,7 @@ export default function Roles() {
                             roles.map((item) => (
                                 <tr key={item.roleId}>
                                     <td>{item.roleFonction}</td>
-                                    <td>{item.roleLieu}</td>
+                                    <td>{item.roleDesc}</td>
                                     <td style={{ minWidth: 190 }}>
                                         <ButtonGroup aria-label='Basic example'>
                                             <Button size='sm' variant='secondary' onClick={() => { handleViewShow(setRowRoleShow(item)) }}> <FontAwesomeIcon icon={faEye} /> </Button>
@@ -136,7 +134,7 @@ export default function Roles() {
                                 <strong>Fonction : </strong>{rowRoleShow.roleFonction}
                             </div>
                             <div className='form-group'>
-                                <strong>Lieu : </strong>{rowRoleShow.roleLieu}
+                                <strong>Description : </strong>{rowRoleShow.roleDesc}
                             </div>
                         </div>
                     </Modal.Body>
@@ -172,7 +170,7 @@ export default function Roles() {
                                 <strong>Fonction : </strong>{rowRoleShow.roleFonction}
                             </div>
                             <div className='form-group'>
-                                <strong>Lieu : </strong>{rowRoleShow.roleLieu}
+                                <strong>Description : </strong>{rowRoleShow.roleDesc}
                             </div>
                         </div>
                     </Modal.Body>
@@ -202,16 +200,8 @@ export default function Roles() {
                             </FloatingLabel>
 
                             <FloatingLabel controlId='toto' label='Description fonction' className='mb-3'>
-                                <Form.Control type='text' onChange={(e) => setRoleLieu(e.target.value)} placeholder='Description fonction' />
+                                <Form.Control type='text' onChange={(e) => setRoleDesc(e.target.value)} placeholder='Description fonction' />
                             </FloatingLabel>
-                            {/* <div className='form-group'>
-                                <label>Fonction titulaire :</label>
-                                <input type="text" className='form-control' onChange={(e) => setRoleFonction(e.target.value)} placeholder="entrer fonction titulaire" />
-                            </div>
-                            <div className='form-group'>
-                                <label>Description :</label>
-                                <input type="text" className='form-control' onChange={(e) => setRoleLieu(e.target.value)} placeholder="entrer description" />
-                            </div> */}
                         </div>
                     </Modal.Body>
 

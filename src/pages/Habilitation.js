@@ -3,9 +3,11 @@ import axios from 'axios';
 import { Button, ButtonGroup, Card, Modal, Table, Form, Col, Row } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faPenToSquare, faTrash, faPlus, faCheck, faList, faSpinner } from '@fortawesome/free-solid-svg-icons';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import ChartPie from './Statistique/ChartPie';
 import ChartBar from './Statistique/ChartBar';
+import { format } from "date-fns";
+import { toast } from 'react-toastify';
 
 export default function Habilitation() {
 
@@ -22,15 +24,17 @@ export default function Habilitation() {
     const [roleFonction, setRoleFonction] = useState("");
     const [foncInterim, setFoncInterim] = useState("");
     const [etabCode, setEtabCode] = useState("");
+    const [etabCodeSortant, setEtabCodeSortant] = useState("");
     const [typeHabCode, setTypeHabCode] = useState("");
     const [supportCode, setSupportCode] = useState("");
     const [habCaisse, setHabCaisse] = useState("");
+    const [habCaisseSortant, setHabCaisseSortant] = ("");
     const [habDateDebut, setHabDateBebut] = useState("");
     const [habDateFin, setHabDateFin] = useState("");
     const [statusDebut, setStatusDebut] = useState(true);
     const [statusFin, setStatusFin] = useState(true)
 
-    const habilitationInfo = { persCodeExp, roleFonction, foncInterim, etabCode, typeHabCode, supportCode, habCaisse, habDateDebut, habDateFin, statusDebut, statusFin };
+    const habilitationInfo = { persCodeExp, roleFonction, foncInterim, etabCode, etabCodeSortant, typeHabCode, supportCode, habCaisse, habCaisseSortant, habDateDebut, habDateFin, statusDebut, statusFin };
 
     //details habilitations
     const [viewShow, setViewShow] = useState(false);
@@ -103,11 +107,17 @@ export default function Habilitation() {
         window.location.reload();
     }
 
+    const navigate = useNavigate();
+
     useEffect(() => {
         loadHabilitations();
         loadVtotal();
         loadEncours();
         loadTermine();
+        let username = sessionStorage.getItem('username');
+        if (username === '' || username === null) {
+            navigate('/login');
+        }
         document.title = "Habilitation";
     }, [])
 
@@ -202,10 +212,12 @@ export default function Habilitation() {
                             <th>Code Exp</th>
                             <th>Fonction titulaire</th>
                             <th>Fonction interimaire</th>
-                            <th>Code agence</th>
+                            <th>Agence entrant</th>
+                            <th>Agence sortant</th>
                             <th>Type habilitation</th>
                             <th>Support</th>
-                            <th>Caisse</th>
+                            <th>Caisse entrant</th>
+                            <th>Caisse sortant</th>
                             <th>Date début</th>
                             <th>Date fin</th>
                             <th>Statut début</th>
@@ -226,23 +238,27 @@ export default function Habilitation() {
                                     <td>{item.roleFonction}</td>
                                     <td>{item.foncInterim}</td>
                                     <td>{item.etabCode}</td>
+                                    <td>{item.etabCodeSortant}</td>
                                     <td>{item.typeHabCode}</td>
                                     <td>{item.supportCode}</td>
                                     <td>{item.habCaisse}</td>
-                                    <td>{item.habDateDebut}</td>
-                                    <td>{item.habDateFin}</td>
+                                    <td>{item.habCaisseSortant}</td>
+                                    <td>{format(new Date(item.habDateDebut), 'dd-MM-yyyy')}</td>
+                                    <td>{format(new Date(item.habDateFin), 'dd-MM-yyyy')}</td>
                                     <td>
                                         <Form.Check type="switch" id="custom" checked={item.statusDebut} />
-
                                     </td>
                                     <td>
                                         <Form.Check type="switch" id="custom" checked={item.statusFin} />
-
                                     </td>
                                     <td>
                                         <ButtonGroup aria-label='Basic example'>
                                             <Button size='sm' variant='secondary' onClick={() => { handleViewShow(setRowHabilitation(item)) }}> <FontAwesomeIcon icon={faEye} /> </Button>
-                                            <Button size='sm' variant='warning'> <FontAwesomeIcon icon={faPenToSquare} /> </Button>
+                                            <Button size='sm' variant='warning'>
+                                                <Link to={`/habilitation/updateHabilitation/${item.habId}`}>
+                                                    <FontAwesomeIcon icon={faPenToSquare} />
+                                                </Link>
+                                            </Button>
                                             <Button size='sm' variant='danger' onClick={() => { handleDeleteShow(setRowHabilitation(item), setHabId(item.habId), setDeleteHabilitation(true)) }}> <FontAwesomeIcon icon={faTrash} /> </Button>
                                         </ButtonGroup>
                                     </td>
@@ -277,16 +293,22 @@ export default function Habilitation() {
                                 <strong>Fonction interimaire        :</strong> {rowHabilitation.foncInterim}
                             </div>
                             <div className='form-group'>
+                                <strong>Agence entrant              :</strong> {rowHabilitation.etabCode}
+                            </div>
+                            <div className='form-group'>
+                                <strong>Agence sortant              :</strong> {rowHabilitation.etabCodeSortant}
+                            </div>
+                            <div className='form-group'>
                                 <strong>Code de type d'habilitation :</strong> {rowHabilitation.typeHabCode}
                             </div>
                             <div className='form-group'>
                                 <strong>Code de support             :</strong> {rowHabilitation.supportCode}
                             </div>
                             <div className='form-group'>
-                                <strong>Caisse                      :</strong> {rowHabilitation.habCaisse}
+                                <strong>Caisse entrant              :</strong> {rowHabilitation.habCaisse}
                             </div>
                             <div className='form-group'>
-                                <strong>Code d'établissement        :</strong> {rowHabilitation.etabCode}
+                                <strong>Caisse sortant              :</strong> {rowHabilitation.habCaisseSortant}
                             </div>
                             <div className='form-group'>
                                 <strong>Date début                  :</strong> {rowHabilitation.habDateDebut}
@@ -357,40 +379,48 @@ export default function Habilitation() {
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridCode">
                                     <Form.Label>Code exploitant :</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setPersCodeExp(e.target.value)} placeholder="entrer code exploitant " />
+                                    <Form.Control type="text" onChange={(e) => setPersCodeExp(e.target.value)} placeholder="code exploitant " />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGridFonc">
                                     <Form.Label>Fonction titulaire : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setRoleFonction(e.target.value)} placeholder="entrer fonction titulaire" />
+                                    <Form.Control type="text" onChange={(e) => setRoleFonction(e.target.value)} placeholder="fonction titulaire" />
+                                </Form.Group>
+                                <Form.Group as={Col} controlId="formGridFoncInt">
+                                    <Form.Label>Fonction intérim :</Form.Label>
+                                    <Form.Control type="text" onChange={(e) => setFoncInterim(e.target.value)} placeholder="fonction intérimaire" />
                                 </Form.Group>
                             </Row>
 
                             <Row className="mb-3">
-                                <Form.Group as={Col} controlId="formGridFoncInt">
-                                    <Form.Label>Fonction intérimaire :</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setFoncInterim(e.target.value)} placeholder="entrer fonction intérimaire " />
+                                <Form.Group as={Col} controlId="formGrid">
+                                    <Form.Label>Agence entrant : </Form.Label>
+                                    <Form.Control type="text" onChange={(e) => setEtabCode(e.target.value)} placeholder="code agence entrant" />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGrid">
-                                    <Form.Label>Code de l'établissement : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setEtabCode(e.target.value)} placeholder="entrer code établissement" />
+                                    <Form.Label>Agence sortant : </Form.Label>
+                                    <Form.Control type="text" onChange={(e) => setEtabCodeSortant(e.target.value)} placeholder="code agence sortant" />
                                 </Form.Group>
                             </Row>
 
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGridCode">
                                     <Form.Label>Type d'habilitation :</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setTypeHabCode(e.target.value)} placeholder="entrer code type habilitation" />
+                                    <Form.Control type="text" onChange={(e) => setTypeHabCode(e.target.value)} placeholder="code type habilitation" />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGrid">
                                     <Form.Label>Code de support : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setSupportCode(e.target.value)} placeholder="entrer code support" />
+                                    <Form.Control type="text" onChange={(e) => setSupportCode(e.target.value)} placeholder="code support" />
                                 </Form.Group>
                             </Row>
 
                             <Row className="mb-3">
                                 <Form.Group as={Col} controlId="formGrid">
-                                    <Form.Label>Caisse : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setHabCaisse(e.target.value)} placeholder="entrer caisse" />
+                                    <Form.Label>Caisse entrant : </Form.Label>
+                                    <Form.Control type="text" onChange={(e) => setHabCaisse(e.target.value)} placeholder="caisse entrant" />
+                                </Form.Group>
+                                <Form.Group as={Col} controlId="formGrid">
+                                    <Form.Label>Caisse sortant : </Form.Label>
+                                    <Form.Control type="text" onChange={(e) => setHabCaisseSortant(e.target.value)} placeholder="caisse entrant" />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="formGridCode">
                                     <Form.Label>Date début :</Form.Label>

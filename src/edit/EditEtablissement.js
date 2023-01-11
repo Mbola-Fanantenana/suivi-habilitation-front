@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Button, ButtonGroup, Card, Form, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 export default function EditEtablissement() {
 
@@ -13,7 +14,19 @@ export default function EditEtablissement() {
 
     const { etabCode, etabDesc } = etablissement;
     const { etabId } = useParams();
-    const [validated, setValidated] = useState(false);
+
+    const validate = () => {
+        let result = true;
+        if (etabCode === '' || etabCode === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (etabDesc === '' || etabDesc === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        return result;
+    }
 
     const handleChange = (event) => {
         const { name, value } = event.currentTarget
@@ -24,11 +37,12 @@ export default function EditEtablissement() {
     }
 
     const updateEtablissement = async (e) => {
-
         e.preventDefault();
-        setValidated(true);
-        await axios.put(`http://localhost:4000/api/updateEtablissement/${etabId}`, etablissement);
-        navigate("/etablissement");
+        if (validate()) {
+            await axios.put(`http://localhost:4000/api/updateEtablissement/${etabId}`, etablissement);
+            navigate("/etablissement");
+            toast.success("Modification réussie");
+        }
     }
 
     const loadEtablissements = async () => {
@@ -58,7 +72,7 @@ export default function EditEtablissement() {
                         <h3><strong>Modification etablissement</strong></h3>
                     </Card.Header>
                     <Card.Body>
-                        <Form noValidate validated={validated} onSubmit={updateEtablissement}>
+                        <Form onSubmit={updateEtablissement}>
                             <Row className='mb-3'>
                                 <Form.Group controlId="formGridCode">
                                     <Form.Label>Code etablissement :</Form.Label>
@@ -84,12 +98,12 @@ export default function EditEtablissement() {
                                         required
                                     />
                                     <ButtonGroup className='mt-3'>
-                                    <Button type='submit' size='sm' variant="primary">Enregistrer</Button>
-                                    <Button size='sm' variant="secondary">
-                                        <Link to={'/etablissement'}>
-                                        </Link>
-                                        retour
-                                    </Button>
+                                        <Button type='submit' size='sm' variant="primary">Enregistrer</Button>
+                                        <Button size='sm' variant="secondary">
+                                            <Link to={'/etablissement'}>
+                                            </Link>
+                                            retour
+                                        </Button>
                                     </ButtonGroup>
                                 </Form.Group>
                             </Row>

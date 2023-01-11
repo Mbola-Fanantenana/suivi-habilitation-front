@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { useNavigate, useParams, Link } from 'react-router-dom'
 import { Button, ButtonGroup, Card, Form, Row } from 'react-bootstrap';
+import { toast } from 'react-toastify';
 
 export default function EditTypeHabilitation() {
 
@@ -14,6 +15,19 @@ export default function EditTypeHabilitation() {
     const { typeHabCode, typeHabDesc } = typeHabilitation;
     const { typeHabId } = useParams();
 
+    const validate = () => {
+        let result = true;
+        if (typeHabCode === '' || typeHabCode === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        if (typeHabDesc === '' || typeHabDesc === null) {
+            result = false;
+            toast.warning('veuillez remplir les champs')
+        }
+        return result;
+    }
+
     const handleChange = (event) => {
         const { name, value } = event.currentTarget
         setTypeHabilitation({
@@ -24,8 +38,11 @@ export default function EditTypeHabilitation() {
 
     const updateTypeHabilitation = async (e) => {
         e.preventDefault();
-        await axios.put(`http://localhost:4000/api/updateTypeHabilitation/${typeHabId}`, typeHabilitation);
-        navigate("/typeHabilitation");
+        if (validate()) {            
+            await axios.put(`http://localhost:4000/api/updateTypeHabilitation/${typeHabId}`, typeHabilitation);
+            navigate("/typeHabilitation");
+            toast.success('Modification réussie')
+        }
     }
 
     const loadTypeHabilitation = async () => {
