@@ -14,7 +14,7 @@ export default function Login() {
         sessionStorage.clear();
     }, []);
 
-    const isProccedLogin = (e) => { 
+    const isProccedLogin = (e) => {
         e.preventDefault();
         if (validate()) {
             fetch("http://localhost:2000/user/" + username).then((res) => {
@@ -52,21 +52,23 @@ export default function Login() {
     }
 
     return (
-        <div className='row'>
-            <div className='offset-lg-3 col-lg-6'>
-                <form className='container' onSubmit={isProccedLogin}>
-                    <Card>
-                        <Card.Header>
-                            <Card.Title><h4>Login</h4></Card.Title>
-                        </Card.Header>
-                        <Card.Body>
-                            <FloatingLabel controlId='pseudo' label="Nom d'utilisateur" className='mb-3'>
-                                <Form.Control  value={username} onChange={e => usernameUpdate(e.target.value)} placeholder="Nom d'utilisateur" />
-                            </FloatingLabel>
-                            <FloatingLabel controlId='mdp' label="Mot de passe" className='mb-3'>
-                                <Form.Control type='password' value={password} onChange={e => passwordUpdate(e.target.value)} placeholder="Mot de" />
-                            </FloatingLabel>
-                            {/* <div className='form-group'>
+        <div className='container'>
+            <div className='row'>
+                <div className='offset-lg-4 col-lg-6'>
+                    <form className='container mt-4' onSubmit={isProccedLogin}>
+                        <Card style={{ width: '25rem' }}>
+                            {/* <Card.Header>
+                                <Card.Title><h4>Login</h4></Card.Title>
+                            </Card.Header> */}
+                            <Card.Img variant='top' src={require('../layout/assets/img/logo.png')} height={200} />
+                            <Card.Body className='mt-4'>
+                                <FloatingLabel controlId='pseudo' label="Nom d'utilisateur" className='mb-3 mt-3'>
+                                    <Form.Control value={username} onChange={e => usernameUpdate(e.target.value)} placeholder="Nom d'utilisateur" />
+                                </FloatingLabel>
+                                <FloatingLabel controlId='mdp' label="Mot de passe" className='mb-3'>
+                                    <Form.Control type='password' value={password} onChange={e => passwordUpdate(e.target.value)} placeholder="Mot de" />
+                                </FloatingLabel>
+                                {/* <div className='form-group'>
                                 <label>Nom d'utilisateur :</label>
                                 <input value={username} onChange={e => usernameUpdate(e.target.value)} className='form-control' />
                             </div>
@@ -74,13 +76,14 @@ export default function Login() {
                                 <label>Mot de passe :</label>
                                 <input type='password' value={password} onChange={e => passwordUpdate(e.target.value)} className='form-control' />
                             </div> */}
-                        </Card.Body>
-                        <Card.Footer>
-                            <Button type='submit' variant='success' style={{ float: 'right' }} >se connecter</Button>
-                            <Link to={'/register'} >Ajouter nouvel utilisateur ?</Link>
-                        </Card.Footer>
-                    </Card>
-                </form>
+                            </Card.Body>
+                            <Card.Footer>
+                                <Button type='submit' variant='primary' style={{ float: 'right' }} >se connecter</Button>
+                                <Link to={'/register'} >Ajouter nouvel utilisateur ?</Link>
+                            </Card.Footer>
+                        </Card>
+                    </form>
+                </div>
             </div>
         </div>
     )

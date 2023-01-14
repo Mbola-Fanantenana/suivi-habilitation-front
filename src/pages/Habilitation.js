@@ -8,6 +8,8 @@ import ChartPie from './Statistique/ChartPie';
 import ChartBar from './Statistique/ChartBar';
 import { format } from "date-fns";
 import { toast } from 'react-toastify';
+import NavBar from './NavBar';
+import Base from './Base';
 
 export default function Habilitation() {
 
@@ -16,6 +18,7 @@ export default function Habilitation() {
     const [vtotal, setVtotal] = useState([]);
     const [encours, setEncours] = useState([]);
     const [termine, setTermine] = useState([]);
+    const [currentDate, setCurrentDate] = useState([]);
 
     const [deleteHabilitation, setDeleteHabilitation] = useState(false);
     const [habId, setHabId] = useState("");
@@ -99,6 +102,15 @@ export default function Habilitation() {
         console.log(result.data);
     }
 
+    const currentDateTime = async () => {
+        const result = await axios.get("http://localhost:4000/api/currentDate");
+        setCurrentDate(result.data);
+        //console.log(result.data);
+        if (currentDate == habDateFin) {
+            toast.success("Une habilitation vient de terminée !!!!");
+        }
+    }
+
     // function delete habilitation
     const handleDelete = () => {
         const url = `http://localhost:4000/api/deleteHabilitation/${habId}`
@@ -114,6 +126,7 @@ export default function Habilitation() {
         loadVtotal();
         loadEncours();
         loadTermine();
+        currentDateTime();
         let username = sessionStorage.getItem('username');
         if (username === '' || username === null) {
             navigate('/login');
@@ -121,338 +134,350 @@ export default function Habilitation() {
         document.title = "Habilitation";
     }, [])
 
+    // const date = new Date().toLocaleDateString();
+    // console.log(date); // 6/17/2022
+    // if (date == habDateFin) {
+    //     toast.success("terminé");
+    // }
+
     return (
-        <div className='container'>
-            <div className='row'>
+        <body>
+            <NavBar />
+            <Base />
+            <main id='main' class='main'>
+                <div className='container'>
+                    <div className='row'>
 
-                <div className='col-md-4'>
-                    <Card>
-                        <Card.Header>
-                            <FontAwesomeIcon icon={faList} /> Total habilitation :
-                        </Card.Header>
-                        <Card.Body>
-                            {
-                                vtotal.map((val) => (
-                                    <h2 style={{ float: 'right', color: '#0B5ED7' }}>{val.total}</h2>
-                                ))
-                            }
-                        </Card.Body>
-                    </Card>
-                </div>
+                        <div className='col-md-4'>
+                            <Card>
+                                <Card.Header>
+                                    <FontAwesomeIcon icon={faList} /> Total habilitation :
+                                </Card.Header>
+                                <Card.Body>
+                                    {
+                                        vtotal.map((val) => (
+                                            <h2 style={{ float: 'right', color: '#0B5ED7' }}>{val.total}</h2>
+                                        ))
+                                    }
+                                </Card.Body>
+                            </Card>
+                        </div>
 
-                <div className='col-md-4'>
-                    <Card>
-                        <Card.Header>
-                            <FontAwesomeIcon icon={faSpinner} /> Habilitation en cours :
-                        </Card.Header>
-                        <Card.Body>
-                            {
-                                encours.map((en) => (
-                                    <h2 style={{ float: 'right', color: '#0B5ED7' }}>{en.encours}</h2>
-                                ))
-                            }
-                        </Card.Body>
-                    </Card>
-                </div>
+                        <div className='col-md-4'>
+                            <Card>
+                                <Card.Header>
+                                    <FontAwesomeIcon icon={faSpinner} /> Habilitation en cours :
+                                </Card.Header>
+                                <Card.Body>
+                                    {
+                                        encours.map((en) => (
+                                            <h2 style={{ float: 'right', color: '#0B5ED7' }}>{en.encours}</h2>
+                                        ))
+                                    }
+                                </Card.Body>
+                            </Card>
+                        </div>
 
-                <div className='col-md-4'>
-                    <Card>
-                        <Card.Header>
-                            <FontAwesomeIcon icon={faCheck} /> Habilitation terminé :
-                        </Card.Header>
-                        <Card.Body>
-                            {
-                                termine.map((fini) => (
-                                    <h2 style={{ float: 'right', color: '#0B5ED7' }}>{fini.termine}</h2>
-                                ))
-                            }
-                        </Card.Body>
-                    </Card>
-                </div>
-            </div>
-
-            <div className='row'>
-                <div className='col-lg-6'>
-                    <div className='card'>
-                        <div className='card-body'>
-                            <h5 className='card-title' style={{ color: '#798eb3' }}>Agence</h5>
-                            <ChartPie />
+                        <div className='col-md-4'>
+                            <Card>
+                                <Card.Header>
+                                    <FontAwesomeIcon icon={faCheck} /> Habilitation terminé :
+                                </Card.Header>
+                                <Card.Body>
+                                    {
+                                        termine.map((fini) => (
+                                            <h2 style={{ float: 'right', color: '#0B5ED7' }}>{fini.termine}</h2>
+                                        ))
+                                    }
+                                </Card.Body>
+                            </Card>
                         </div>
                     </div>
-                </div>
 
-                <div className='col-lg-6'>
-                    <div className='card'>
-                        <div className='card-body'>
-                            <h5 className="card-title" style={{ color: '#798eb3' }}>Agent</h5>
-                            <ChartBar />
+                    <div className='row'>
+                        <div className='col-lg-6'>
+                            <div className='card'>
+                                <div className='card-body'>
+                                    <h5 className='card-title' style={{ color: '#798eb3' }}>Agence</h5>
+                                    <ChartPie />
+                                </div>
+                            </div>
+                        </div>
+
+                        <div className='col-lg-6'>
+                            <div className='card'>
+                                <div className='card-body'>
+                                    <h5 className="card-title" style={{ color: '#798eb3' }}>Agent</h5>
+                                    <ChartBar />
+                                </div>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <div className='row'>
-                <div className='mb-4 mt-2'>
-                    <Button size='sm' variant='primary' onClick={() => { handleAddShow() }}>
-                        <FontAwesomeIcon icon={faPlus} />
-                        Ajouter habilitation
-                    </Button>
-                </div>
+                    <div className='row'>
+                        <div className='mb-4 mt-2'>
+                            <Button size='sm' variant='primary' onClick={() => { handleAddShow() }}>
+                                <FontAwesomeIcon icon={faPlus} />
+                                Ajouter habilitation
+                            </Button>
+                        </div>
 
-                <div className='form-group mb-4'>
-                    <input type='text' className='form-control' onChange={(e) => setSearch(e.target.value)} placeholder='rechercher ...' />
-                </div>
-            </div>
+                        <div className='form-group mb-4'>
+                            <input type='text' className='form-control' onChange={(e) => setSearch(e.target.value)} placeholder='rechercher ...' />
+                        </div>
+                    </div>
 
 
-            <div className='row'>
-                <Table striped bordered hover responsive size='sm'>
-                    <thead>
-                        <tr>
-                            <th>Code Exp</th>
-                            <th>Fonction titulaire</th>
-                            <th>Fonction interimaire</th>
-                            <th>Agence entrant</th>
-                            <th>Agence sortant</th>
-                            <th>Type habilitation</th>
-                            <th>Support</th>
-                            <th>Caisse entrant</th>
-                            <th>Caisse sortant</th>
-                            <th>Date début</th>
-                            <th>Date fin</th>
-                            <th>Statut début</th>
-                            <th>Statut fin</th>
-                            <th>Action</th>
-                        </tr>
-                    </thead>
-
-                    <tbody>
-                        {
-                            habilitations.filter((item) => {
-                                return search.toLowerCase() === ''
-                                    ? item
-                                    : item.persCodeExp.toLowerCase().includes(search);
-                            }).map((item) => (
-                                <tr key={item.habId}>
-                                    <td>{item.persCodeExp}</td>
-                                    <td>{item.roleFonction}</td>
-                                    <td>{item.foncInterim}</td>
-                                    <td>{item.etabCode}</td>
-                                    <td>{item.etabCodeSortant}</td>
-                                    <td>{item.typeHabCode}</td>
-                                    <td>{item.supportCode}</td>
-                                    <td>{item.habCaisse}</td>
-                                    <td>{item.habCaisseSortant}</td>
-                                    <td>{format(new Date(item.habDateDebut), 'dd-MM-yyyy')}</td>
-                                    <td>{format(new Date(item.habDateFin), 'dd-MM-yyyy')}</td>
-                                    <td>
-                                        <Form.Check type="switch" id="custom" checked={item.statusDebut} />
-                                    </td>
-                                    <td>
-                                        <Form.Check type="switch" id="custom" checked={item.statusFin} />
-                                    </td>
-                                    <td>
-                                        <ButtonGroup aria-label='Basic example'>
-                                            <Button size='sm' variant='secondary' onClick={() => { handleViewShow(setRowHabilitation(item)) }}> <FontAwesomeIcon icon={faEye} /> </Button>
-                                            <Button size='sm' variant='warning'>
-                                                <Link to={`/habilitation/updateHabilitation/${item.habId}`}>
-                                                    <FontAwesomeIcon icon={faPenToSquare} />
-                                                </Link>
-                                            </Button>
-                                            <Button size='sm' variant='danger' onClick={() => { handleDeleteShow(setRowHabilitation(item), setHabId(item.habId), setDeleteHabilitation(true)) }}> <FontAwesomeIcon icon={faTrash} /> </Button>
-                                        </ButtonGroup>
-                                    </td>
+                    <div className='row'>
+                        <Table striped bordered hover responsive size='sm'>
+                            <thead>
+                                <tr>
+                                    <th>Code Exp</th>
+                                    <th>Fonction titulaire</th>
+                                    <th>Fonction interimaire</th>
+                                    <th>Agence entrant</th>
+                                    <th>Agence sortant</th>
+                                    <th>Type habilitation</th>
+                                    <th>Support</th>
+                                    <th>Caisse entrant</th>
+                                    <th>Caisse sortant</th>
+                                    <th>Date début</th>
+                                    <th>Date fin</th>
+                                    <th>Statut début</th>
+                                    <th>Statut fin</th>
+                                    <th>Action</th>
                                 </tr>
-                            ))
-                        }
-                    </tbody>
-                </Table>
-            </div>
+                            </thead>
 
-            {/* Modal for details */}
-            <div className='model-box-view'>
-                <Modal
-                    show={viewShow}
-                    onHide={handleViewClose}
-                    backdrop="static"
-                    keyboard={false}
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Détails</Modal.Title>
-                    </Modal.Header>
+                            <tbody>
+                                {
+                                    habilitations.filter((item) => {
+                                        return search.toLowerCase() === ''
+                                            ? item
+                                            : item.persCodeExp.toLowerCase().includes(search);
+                                    }).map((item) => (
+                                        <tr key={item.habId}>
+                                            <td>{item.persCodeExp}</td>
+                                            <td>{item.roleFonction}</td>
+                                            <td>{item.foncInterim}</td>
+                                            <td>{item.etabCode}</td>
+                                            <td>{item.etabCodeSortant}</td>
+                                            <td>{item.typeHabCode}</td>
+                                            <td>{item.supportCode}</td>
+                                            <td>{item.habCaisse}</td>
+                                            <td>{item.habCaisseSortant}</td>
+                                            <td>{format(new Date(item.habDateDebut), 'dd/MM/yyyy')}</td>
+                                            <td>{format(new Date(item.habDateFin), 'dd/MM/yyyy')}</td>
+                                            <td>
+                                                <Form.Check type="switch" id="custom" checked={item.statusDebut} />
+                                            </td>
+                                            <td>
+                                                <Form.Check type="switch" id="custom" checked={item.statusFin} />
+                                            </td>
+                                            <td>
+                                                <ButtonGroup aria-label='Basic example'>
+                                                    <Button size='sm' variant='secondary' onClick={() => { handleViewShow(setRowHabilitation(item)) }}> <FontAwesomeIcon icon={faEye} /> </Button>
+                                                    <Button size='sm' variant='warning'>
+                                                        <Link to={`/habilitation/updateHabilitation/${item.habId}`}>
+                                                            <FontAwesomeIcon icon={faPenToSquare} />
+                                                        </Link>
+                                                    </Button>
+                                                    <Button size='sm' variant='danger' onClick={() => { handleDeleteShow(setRowHabilitation(item), setHabId(item.habId), setDeleteHabilitation(true)) }}> <FontAwesomeIcon icon={faTrash} /> </Button>
+                                                </ButtonGroup>
+                                            </td>
+                                        </tr>
+                                    ))
+                                }
+                            </tbody>
+                        </Table>
+                    </div>
 
-                    <Modal.Body>
-                        <div>
-                            <div className='form-group'>
-                                <strong>Code exploitant             :</strong> {rowHabilitation.persCodeExp}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Fonction titulaire          :</strong> {rowHabilitation.roleFonction}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Fonction interimaire        :</strong> {rowHabilitation.foncInterim}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Agence entrant              :</strong> {rowHabilitation.etabCode}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Agence sortant              :</strong> {rowHabilitation.etabCodeSortant}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Code de type d'habilitation :</strong> {rowHabilitation.typeHabCode}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Code de support             :</strong> {rowHabilitation.supportCode}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Caisse entrant              :</strong> {rowHabilitation.habCaisse}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Caisse sortant              :</strong> {rowHabilitation.habCaisseSortant}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Date début                  :</strong> {rowHabilitation.habDateDebut}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Date fin                    :</strong> {rowHabilitation.habDateFin}
-                            </div>
-                            <div className='form-group'>
-                                <strong>Statut début                :</strong> <Form.Check type="switch" id="custom" checked={rowHabilitation.statusDebut} />
-                            </div>
-                            <div className='form-group'>
-                                <strong>Status fin                  :</strong> <Form.Check type="switch" id="custom" checked={rowHabilitation.statusFin} />
-                            </div>
-                        </div>
-                    </Modal.Body>
+                    {/* Modal for details */}
+                    <div className='model-box-view'>
+                        <Modal
+                            show={viewShow}
+                            onHide={handleViewClose}
+                            backdrop="static"
+                            keyboard={false}
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>Détails</Modal.Title>
+                            </Modal.Header>
 
-                    <Modal.Footer>
-                        <Button variant="secondary" onClick={handleViewClose}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+                            <Modal.Body>
+                                <div>
+                                    <div className='form-group'>
+                                        <strong>Code exploitant             :</strong> {rowHabilitation.persCodeExp}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Fonction titulaire          :</strong> {rowHabilitation.roleFonction}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Fonction interimaire        :</strong> {rowHabilitation.foncInterim}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Agence entrant              :</strong> {rowHabilitation.etabCode}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Agence sortant              :</strong> {rowHabilitation.etabCodeSortant}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Code de type d'habilitation :</strong> {rowHabilitation.typeHabCode}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Code de support             :</strong> {rowHabilitation.supportCode}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Caisse entrant              :</strong> {rowHabilitation.habCaisse}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Caisse sortant              :</strong> {rowHabilitation.habCaisseSortant}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Date début                  :</strong> {rowHabilitation.habDateDebut}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Date fin                    :</strong> {rowHabilitation.habDateFin}
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Statut début                :</strong> <Form.Check type="switch" id="custom" checked={rowHabilitation.statusDebut} />
+                                    </div>
+                                    <div className='form-group'>
+                                        <strong>Status fin                  :</strong> <Form.Check type="switch" id="custom" checked={rowHabilitation.statusFin} />
+                                    </div>
+                                </div>
+                            </Modal.Body>
 
-            {/* Modal for delete */}
-            <div className='model-box-view'>
-                <Modal
-                    show={viewDelete}
-                    onHide={handleDeleteClose}
-                    backdrop="static"
-                    keyboard={false}
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Suppression</Modal.Title>
-                    </Modal.Header>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleViewClose}>Close</Button>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
 
-                    <Modal.Body>
-                        <div>
-                            <h5>Vouler vous vraiment supprimer ?</h5>
-                        </div>
-                    </Modal.Body>
+                    {/* Modal for delete */}
+                    <div className='model-box-view'>
+                        <Modal
+                            show={viewDelete}
+                            onHide={handleDeleteClose}
+                            backdrop="static"
+                            keyboard={false}
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>Suppression</Modal.Title>
+                            </Modal.Header>
 
-                    <Modal.Footer>
-                        <ButtonGroup>
-                            {
-                                deleteHabilitation && (
-                                    <Button size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
-                                )
-                            }
-                            <Button size='sm' onClick={handleDeleteClose} variant="secondary">Annuler</Button>
-                        </ButtonGroup>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+                            <Modal.Body>
+                                <div>
+                                    <h5>Vouler vous vraiment supprimer ?</h5>
+                                </div>
+                            </Modal.Body>
 
-            {/* Modal for add */}
-            <div className='model-box-view'>
-                <Modal
-                    show={viewAdd}
-                    onHide={handleAddClose}
-                    backdrop="static"
-                    keyboard={false}
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title>Ajouter Habilitation</Modal.Title>
-                    </Modal.Header>
+                            <Modal.Footer>
+                                <ButtonGroup>
+                                    {
+                                        deleteHabilitation && (
+                                            <Button size='sm' variant='danger' onClick={handleDelete}>Supprimer</Button>
+                                        )
+                                    }
+                                    <Button size='sm' onClick={handleDeleteClose} variant="secondary">Annuler</Button>
+                                </ButtonGroup>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
 
-                    <Modal.Body>
-                        <Form>
-                            <Row className="mb-3">
-                                <Form.Group as={Col} controlId="formGridCode">
-                                    <Form.Label>Code exploitant :</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setPersCodeExp(e.target.value)} placeholder="code exploitant " />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGridFonc">
-                                    <Form.Label>Fonction titulaire : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setRoleFonction(e.target.value)} placeholder="fonction titulaire" />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGridFoncInt">
-                                    <Form.Label>Fonction intérim :</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setFoncInterim(e.target.value)} placeholder="fonction intérimaire" />
-                                </Form.Group>
-                            </Row>
+                    {/* Modal for add */}
+                    <div className='model-box-view'>
+                        <Modal
+                            show={viewAdd}
+                            onHide={handleAddClose}
+                            backdrop="static"
+                            keyboard={false}
+                            size='lg'
+                        >
+                            <Modal.Header closeButton>
+                                <Modal.Title>Ajouter Habilitation</Modal.Title>
+                            </Modal.Header>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} controlId="formGrid">
-                                    <Form.Label>Agence entrant : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setEtabCode(e.target.value)} placeholder="code agence entrant" />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGrid">
-                                    <Form.Label>Agence sortant : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setEtabCodeSortant(e.target.value)} placeholder="code agence sortant" />
-                                </Form.Group>
-                            </Row>
+                            <Modal.Body>
+                                <Form>
+                                    <Row className="mb-3">
+                                        <Form.Group as={Col} controlId="formGridCode">
+                                            <Form.Label>Code exploitant :</Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setPersCodeExp(e.target.value)} placeholder="code exploitant " />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="formGridFonc">
+                                            <Form.Label>Fonction titulaire : </Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setRoleFonction(e.target.value)} placeholder="fonction titulaire" />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="formGridFoncInt">
+                                            <Form.Label>Fonction intérim :</Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setFoncInterim(e.target.value)} placeholder="fonction intérimaire" />
+                                        </Form.Group>
+                                    </Row>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} controlId="formGridCode">
-                                    <Form.Label>Type d'habilitation :</Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setTypeHabCode(e.target.value)} placeholder="code type habilitation" />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGrid">
-                                    <Form.Label>Code de support : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setSupportCode(e.target.value)} placeholder="code support" />
-                                </Form.Group>
-                            </Row>
+                                    <Row className="mb-3">
+                                        <Form.Group as={Col} controlId="formGrid">
+                                            <Form.Label>Agence entrant : </Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setEtabCode(e.target.value)} placeholder="code agence entrant" />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="formGrid">
+                                            <Form.Label>Agence sortant : </Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setEtabCodeSortant(e.target.value)} placeholder="code agence sortant" />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="formGridCode">
+                                            <Form.Label>Type d'habilitation :</Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setTypeHabCode(e.target.value)} placeholder="code type habilitation" />
+                                        </Form.Group>
+                                    </Row>
 
-                            <Row className="mb-3">
-                                <Form.Group as={Col} controlId="formGrid">
-                                    <Form.Label>Caisse entrant : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setHabCaisse(e.target.value)} placeholder="caisse entrant" />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGrid">
-                                    <Form.Label>Caisse sortant : </Form.Label>
-                                    <Form.Control type="text" onChange={(e) => setHabCaisseSortant(e.target.value)} placeholder="caisse entrant" />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGridCode">
-                                    <Form.Label>Date début :</Form.Label>
-                                    <Form.Control type="date" onChange={(e) => setHabDateBebut(e.target.value)} />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="formGrid">
-                                    <Form.Label>Date fin : </Form.Label>
-                                    <Form.Control type="date" onChange={(e) => setHabDateFin(e.target.value)} />
-                                </Form.Group>
-                            </Row>
-                            <Row className='mb-3'>
-                                <Form.Group as={Col} controlId="checkbox">
-                                    <Form.Label>Status debut :</Form.Label>
-                                    <Form.Check type="switch" defaultChecked={statusDebut} onChange={() => setStatusDebut(!statusDebut)} />
-                                </Form.Group>
-                                <Form.Group as={Col} controlId="checkbox">
-                                    <Form.Label>Status fin :</Form.Label>
-                                    <Form.Check type="switch" defaultChecked={statusFin} onChange={() => setStatusFin(!statusFin)} />
-                                </Form.Group>
-                            </Row>
-                        </Form>
-                    </Modal.Body>
+                                    <Row className="mb-3">
+                                        <Form.Group as={Col} controlId="formGrid">
+                                            <Form.Label>Code de support : </Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setSupportCode(e.target.value)} placeholder="code support" />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="formGrid">
+                                            <Form.Label>Caisse entrant : </Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setHabCaisse(e.target.value)} placeholder="caisse entrant" />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="formGrid">
+                                            <Form.Label>Caisse sortant : </Form.Label>
+                                            <Form.Control type="text" onChange={(e) => setHabCaisseSortant(e.target.value)} placeholder="caisse entrant" />
+                                        </Form.Group>
+                                    </Row>
 
-                    <Modal.Footer>
-                        <ButtonGroup>
-                            <Button type='submit' size='sm' variant='success' onClick={handlePost} >Enregistrer</Button>
-                            <Button size='sm' variant='secondary' onClick={handleAddClose} >fermer</Button>
-                        </ButtonGroup>
-                    </Modal.Footer>
-                </Modal>
-            </div>
+                                    <Row className="mb-3">
+                                    </Row>
+                                    <Row className='mb-3'>
+                                        <Form.Group as={Col} controlId="formGridCode">
+                                            <Form.Label>Date début :</Form.Label>
+                                            <Form.Control type="date" onChange={(e) => setHabDateBebut(e.target.value)} />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="formGrid">
+                                            <Form.Label>Date fin : </Form.Label>
+                                            <Form.Control type="date" onChange={(e) => setHabDateFin(e.target.value)} />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="checkbox">
+                                            <Form.Label>Status debut :</Form.Label>
+                                            <Form.Check type="switch" defaultChecked={statusDebut} onChange={() => setStatusDebut(!statusDebut)} />
+                                        </Form.Group>
+                                        <Form.Group as={Col} controlId="checkbox">
+                                            <Form.Label>Status fin :</Form.Label>
+                                            <Form.Check type="switch" defaultChecked={statusFin} onChange={() => setStatusFin(!statusFin)} />
+                                        </Form.Group>
+                                    </Row>
+                                </Form>
+                            </Modal.Body>
 
-        </div>
+                            <Modal.Footer>
+                                <ButtonGroup>
+                                    <Button type='submit' size='sm' variant='success' onClick={handlePost} >Enregistrer</Button>
+                                    <Button size='sm' variant='secondary' onClick={handleAddClose} >fermer</Button>
+                                </ButtonGroup>
+                            </Modal.Footer>
+                        </Modal>
+                    </div>
+                </div>
+            </main>
+        </body>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, ButtonGroup, Card, FloatingLabel, Form } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
 export default function Register() {
@@ -65,14 +65,13 @@ export default function Register() {
     }
 
     return (
-        <div className='offset-lg-3 col-lg-6'>
-            <form className='container' onSubmit={handleSubmit}>
-                <Card>
+        <div className='offset-lg-4 col-lg-6'>
+            <form className='container mt-4' onSubmit={handleSubmit}>
+                <Card style={{ width: '25rem' }}>
                     <Card.Header>
                         <Card.Title> <h4>Authentification</h4> </Card.Title>
                     </Card.Header>
-                    <Card.Body>
-
+                    <Card.Body className='mt-4'>
                         <FloatingLabel controlId='nomUtil' label="Nom d'utilisateur" className='mb-3'>
                             <Form.Control value={id} onChange={e => setId(e.target.value)} placeholder="Nom d'utilisateur" />
                         </FloatingLabel>
@@ -82,26 +81,26 @@ export default function Register() {
                         </FloatingLabel>
 
                         <FloatingLabel controlId='email' label="Adresse email" className='mb-3'>
-                            <Form.Control value={id} onChange={e => setId(e.target.value)} placeholder="Adresse email" />
-                        </FloatingLabel>
-
-                        <FloatingLabel controlId='role' label="Nom d'utilisateur" className='mb-3'>
-                            <Form.Control value={id} onChange={e => setId(e.target.value)} placeholder="Nom d'utilisateur" />
+                            <Form.Control value={email} onChange={e => setEmail(e.target.value)} placeholder="Adresse email" />
                         </FloatingLabel>
 
                         <div className='form-group'>
                             <label>Rôle :</label>
-                            <select className='form-control' value={role} onChange={e => setRole(e.target.value)}>
+                            <Form.Select size='md' value={role} onChange={e => setRole(e.target.value)}>
+                                <option>...</option>
                                 <option>Administrateur</option>
                                 <option>Utilisateur</option>
-                            </select>
+                            </Form.Select>
                         </div>
-
                     </Card.Body>
                     <Card.Footer>
-                        <ButtonGroup>
-                            <Button type='submit' size='sm' variant='success' >s'authentifier</Button>
-                            <Button type='reset' size='sm' variant='secondary'>annuler</Button>
+                        <ButtonGroup style={{ float: 'right' }}>
+                            <Button type='submit' size='md' variant='success' >s'authentifier</Button>
+                            <Button type='reset' size='md' variant='secondary'>
+                                <Link to={'/login'}>
+                                annuler
+                                </Link>
+                            </Button>
                         </ButtonGroup>
                     </Card.Footer>
                 </Card>

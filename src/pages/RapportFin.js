@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
 import { Table } from 'react-bootstrap';
+import NavBar from './NavBar';
+import Base from './Base';
 
 export default function RapportFin() {
 
@@ -20,42 +22,48 @@ export default function RapportFin() {
     }, [])
 
     return (
-        <div className='container'>
-            <div className='row'>
-                <div className='form-group mb-4'>
-                    <input type='text' className='form-control' onChange={(e) => setSearch(e.target.value)} placeholder='rechercher ...' />
-                </div>
-                <div className='table-responsive'>
-                    <Table striped bordered hover responsive size='sm'>
-                        <thead>
-                            <tr>
-                                <th>Code etablissement</th>
-                                <th>Code exploitant</th>
-                                <th>Fonction titulaire</th>
-                                <th>Fonction intérimaire</th>
-                                <th>Date fin</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                viewHabilitations.filter((item) => {
-                                    return search.toLowerCase() === ''
-                                        ? item
-                                        : item.persCodeExp.toLowerCase().includes(search);
-                                }).map((item) => (
+        <body>
+            <NavBar />
+            <Base />
+            <main id='main' class='main'>
+                <div className='container'>
+                    <div className='row'>
+                        <div className='form-group mb-4'>
+                            <input type='text' className='form-control' onChange={(e) => setSearch(e.target.value)} placeholder='rechercher ...' />
+                        </div>
+                        <div className='table-responsive'>
+                            <Table striped bordered hover responsive size='sm'>
+                                <thead>
                                     <tr>
-                                        <td>{item.etabCode}</td>
-                                        <td>{item.persCodeExp}</td>
-                                        <td>{item.roleFonction}</td>
-                                        <td>{item.foncInterim}</td>
-                                        <td>{item.habDateFin}</td>
+                                        <th>Code etablissement</th>
+                                        <th>Code exploitant</th>
+                                        <th>Fonction titulaire</th>
+                                        <th>Fonction intérimaire</th>
+                                        <th>Date fin</th>
                                     </tr>
-                                ))
-                            }
-                        </tbody>
-                    </Table>
+                                </thead>
+                                <tbody>
+                                    {
+                                        viewHabilitations.filter((item) => {
+                                            return search.toLowerCase() === ''
+                                                ? item
+                                                : item.persCodeExp.toLowerCase().includes(search);
+                                        }).map((item) => (
+                                            <tr>
+                                                <td>{item.etabCode}</td>
+                                                <td>{item.persCodeExp}</td>
+                                                <td>{item.roleFonction}</td>
+                                                <td>{item.foncInterim}</td>
+                                                <td>{item.habDateFin}</td>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </Table>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
+            </main>
+        </body>
     )
 }
