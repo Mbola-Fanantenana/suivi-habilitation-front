@@ -38,7 +38,7 @@ export default function EditTypeHabilitation() {
 
     const updateTypeHabilitation = async (e) => {
         e.preventDefault();
-        if (validate()) {            
+        if (validate()) {
             await axios.put(`http://localhost:4000/api/updateTypeHabilitation/${typeHabId}`, typeHabilitation);
             navigate("/typeHabilitation");
             toast.success('Modification réussie')
@@ -99,11 +99,11 @@ export default function EditTypeHabilitation() {
                                         onChange={handleChange}
                                     />
                                     <ButtonGroup className='mt-3'>
-                                    <Button type='submit' variant="primary">Valider</Button>
+                                        <Button type='submit' variant="primary">Valider</Button>
                                         <Button variant="secondary">
                                             <Link to={'/typeHabilitation'}>
+                                                retour
                                             </Link>
-                                            retour
                                         </Button>
                                     </ButtonGroup>
                                 </Form.Group>

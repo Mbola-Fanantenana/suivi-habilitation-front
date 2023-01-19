@@ -38,7 +38,7 @@ export default function EditSupport() {
 
     const updateSupport = async (e) => {
         e.preventDefault();
-        if (validate()) {            
+        if (validate()) {
             await axios.put(`http://localhost:4000/api/updateSupport/${supportId}`, support);
             navigate("/support");
             toast.success('Modification réussie')
@@ -83,7 +83,7 @@ export default function EditSupport() {
                                         name="supportCode"
                                         value={supportCode}
                                         onChange={handleChange}
-                                    />
+                                    /> 
                                 </Form.Group>
                                 <Form.Group>
                                     <Form.Label>
@@ -100,8 +100,8 @@ export default function EditSupport() {
                                         <Button type='submit' variant="primary">Valider</Button>
                                         <Button variant="secondary">
                                             <Link to={'/support'}>
-                                            </Link>
                                             retour
+                                            </Link>
                                         </Button>
                                     </ButtonGroup>
                                 </Form.Group>

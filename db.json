@@ -1,21 +1,9 @@
 {
   "user": [
     {
-      "id": "left",
-      "password": "test",
-      "email": "left@test.com",
-      "role": "Utilisateur"
-    },
-    {
-      "id": "logo",
-      "password": "test",
-      "email": "test@gs.con",
-      "role": "Utilisateur"
-    },
-    {
-      "id": "name",
-      "password": "name",
-      "email": "first@g.co",
+      "id": "admin",
+      "password": "admin",
+      "email": "admin@ad.com",
       "role": "Administrateur"
     }
   ]

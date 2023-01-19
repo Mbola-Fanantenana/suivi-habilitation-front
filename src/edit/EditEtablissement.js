@@ -101,8 +101,8 @@ export default function EditEtablissement() {
                                         <Button type='submit' size='sm' variant="primary">Enregistrer</Button>
                                         <Button size='sm' variant="secondary">
                                             <Link to={'/etablissement'}>
+                                                retour
                                             </Link>
-                                            retour
                                         </Button>
                                     </ButtonGroup>
                                 </Form.Group>
