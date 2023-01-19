@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Button, Card, FloatingLabel, Form } from 'react-bootstrap';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
+import Background from '../layout/assets/img/izy.jpg';
 
 export default function Login() {
 
@@ -57,25 +58,15 @@ export default function Login() {
                 <div className='offset-lg-4 col-lg-6'>
                     <form className='container mt-4' onSubmit={isProccedLogin}>
                         <Card style={{ width: '25rem' }}>
-                            {/* <Card.Header>
-                                <Card.Title><h4>Login</h4></Card.Title>
-                            </Card.Header> */}
                             <Card.Img variant='top' src={require('../layout/assets/img/logo.png')} height={200} />
                             <Card.Body className='mt-4'>
+                                <h3><center>E-HABILITATION</center></h3>
                                 <FloatingLabel controlId='pseudo' label="Nom d'utilisateur" className='mb-3 mt-3'>
                                     <Form.Control value={username} onChange={e => usernameUpdate(e.target.value)} placeholder="Nom d'utilisateur" />
                                 </FloatingLabel>
                                 <FloatingLabel controlId='mdp' label="Mot de passe" className='mb-3'>
                                     <Form.Control type='password' value={password} onChange={e => passwordUpdate(e.target.value)} placeholder="Mot de" />
                                 </FloatingLabel>
-                                {/* <div className='form-group'>
-                                <label>Nom d'utilisateur :</label>
-                                <input value={username} onChange={e => usernameUpdate(e.target.value)} className='form-control' />
-                            </div>
-                            <div className='form-group'>
-                                <label>Mot de passe :</label>
-                                <input type='password' value={password} onChange={e => passwordUpdate(e.target.value)} className='form-control' />
-                            </div> */}
                             </Card.Body>
                             <Card.Footer>
                                 <Button type='submit' variant='primary' style={{ float: 'right' }} >se connecter</Button>
