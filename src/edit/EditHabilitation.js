@@ -19,9 +19,11 @@ export default function EditHabilitation() {
         habCaisseSortant: "",
         habDateDebut: "",
         habDateFin: "",
+        statusDebut: true,
+        statusFin: true
     })
 
-    const { persCodeExp, roleFonction, foncInterim, etabCode, etabCodeSortant, typeHabCode, supportCode, habCaisse, habCaisseSortant, habDateDebut, habDateFin } = habilitation;
+    const { persCodeExp, roleFonction, foncInterim, etabCode, etabCodeSortant, typeHabCode, supportCode, habCaisse, habCaisseSortant, habDateDebut, habDateFin, statusDebut, statusFin } = habilitation;
     const { habId } = useParams();
 
     const validate = () => {
@@ -166,17 +168,16 @@ export default function EditHabilitation() {
                                     <Form.Control type="date" id="habDateFin" name="habDateFin" value={habDateFin} onChange={handleChange} />
                                 </Form.Group>
                             </Row>
-                            {/* <Row className='mb-3'>
+                            <Row className='mb-3'>
                                 <Form.Group as={Col} controlId="checkbox">
                                     <Form.Label>Status debut :</Form.Label>
-                                    <Form.Check type="switch" value={statusDebut} onChange={handleChange} />
+                                    <Form.Check type="switch" defaultChecked={statusDebut} onChange={handleChange} />
                                 </Form.Group>
                                 <Form.Group as={Col} controlId="checkbox">
                                     <Form.Label>Status fin :</Form.Label>
-                                    <Form.Check type="switch" value={statusFin} onChange={handleChange} />
+                                    <Form.Check type="switch" defaultChecked={statusFin} onChange={handleChange} />
                                 </Form.Group>
-                            </Row> */}
-
+                            </Row>
                             <ButtonGroup className='mt-3'>
                                 <Button type='submit' variant='primary'>Valider</Button>
                                 <Button variant='secondary'>

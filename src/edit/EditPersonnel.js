@@ -11,6 +11,7 @@ export default function EditPersonnel() {
         persCodeExp: "",
         persNom: "",
         persPrenom: "",
+        fonction: "",
         persLogin: "",
         persMat: "",
         persCIN: "",
@@ -18,7 +19,7 @@ export default function EditPersonnel() {
         persEmail: ""
     })
 
-    const { persCodeExp, persNom, persPrenom, persLogin, persMat, persCIN, persNumTel, persEmail } = personnel;
+    const { persCodeExp, persNom, persPrenom, fonction, persLogin, persMat, persCIN, persNumTel, persEmail } = personnel;
     const { persId } = useParams();
 
     const validate = () => {
@@ -69,7 +70,7 @@ export default function EditPersonnel() {
     //function edit personnel
     const updatePersonnel = async (e) => {
         e.preventDefault();
-        if (validate()) {            
+        if (validate()) {
             await axios.put(`http://localhost:4000/api/updatePersonnel/${persId}`, personnel);
             navigate("/personnel");
             toast.success('Modification réussie');
@@ -86,8 +87,16 @@ export default function EditPersonnel() {
         }
     }
 
+    const [roles, setRoles] = useState([]);
+    const loadRoles = async () => {
+        const result = await axios.get("http://localhost:4000/api/roles");
+        setRoles(result.data);
+        console.log(result.data);
+    }
+
     useEffect(() => {
         loadPersonnel();
+        loadRoles();
     }, [])
 
     return (
@@ -123,7 +132,16 @@ export default function EditPersonnel() {
                                     <Form.Label> Prénom : </Form.Label>
                                     <Form.Control type={"text"} id="persPrenom" name="persPrenom" value={persPrenom} onChange={handleChange} />
                                 </Form.Group>
-
+                                <Form.Group as={Col}>
+                                    <Form.Label>Fonction titulaire :</Form.Label>
+                                    <Form.Select id="fonction" name="fonction" value={fonction} onChange={handleChange}>
+                                        {
+                                            roles.map((item) => (
+                                                <option value={item.roleFonction}>{item.roleFonction}</option>
+                                            ))
+                                        }
+                                    </Form.Select>  
+                                </Form.Group>
                                 <Form.Group as={Col}>
                                     <Form.Label> Login : </Form.Label>
                                     <Form.Control type={"text"} id="persLogin" name="persLogin" value={persLogin} onChange={handleChange} />
