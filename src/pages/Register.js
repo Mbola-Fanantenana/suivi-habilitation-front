@@ -65,46 +65,48 @@ export default function Register() {
     }
 
     return (
-        <div className='offset-lg-4 col-lg-6'>
-            <form className='container mt-4' onSubmit={handleSubmit}>
-                <Card style={{ width: '25rem' }}>
-                    <Card.Header>
-                        <Card.Title> <h4>Authentification</h4> </Card.Title>
-                    </Card.Header>
-                    <Card.Body className='mt-4'>
-                        <FloatingLabel controlId='nomUtil' label="Nom d'utilisateur" className='mb-3'>
-                            <Form.Control value={id} onChange={e => setId(e.target.value)} placeholder="Nom d'utilisateur" />
-                        </FloatingLabel>
+        <div className='container'>
+            <div className='row'>
+                <div className='offset-lg-4 col-lg-6'>
+                    <form className='container mt-4' onSubmit={handleSubmit}>
+                        <Card style={{ width: '25rem' }}>
+                            <Card.Img variant='top' src={require('../layout/assets/img/logo.png')} height={200} />
+                            <Card.Body className='mt-4'>
+                                <FloatingLabel controlId='nomUtil' label="Nom d'utilisateur" className='mb-3'>
+                                    <Form.Control value={id} onChange={e => setId(e.target.value)} placeholder="Nom d'utilisateur" />
+                                </FloatingLabel>
 
-                        <FloatingLabel controlId='mdp' label="Mot de passe" className='mb-3'>
-                            <Form.Control type='password' value={password} onChange={e => setPassword(e.target.value)} placeholder="Mot de passe" />
-                        </FloatingLabel>
+                                <FloatingLabel controlId='mdp' label="Mot de passe" className='mb-3'>
+                                    <Form.Control type='password' value={password} onChange={e => setPassword(e.target.value)} placeholder="Mot de passe" />
+                                </FloatingLabel>
 
-                        <FloatingLabel controlId='email' label="Adresse email" className='mb-3'>
-                            <Form.Control value={email} onChange={e => setEmail(e.target.value)} placeholder="Adresse email" />
-                        </FloatingLabel>
+                                <FloatingLabel controlId='email' label="Adresse email" className='mb-3'>
+                                    <Form.Control value={email} onChange={e => setEmail(e.target.value)} placeholder="Adresse email" />
+                                </FloatingLabel>
 
-                        <div className='form-group'>
-                            <label>Rôle :</label>
-                            <Form.Select size='md' value={role} onChange={e => setRole(e.target.value)}>
-                                <option>...</option>
-                                <option>Administrateur</option>
-                                <option>Utilisateur</option>
-                            </Form.Select>
-                        </div>
-                    </Card.Body>
-                    <Card.Footer>
-                        <ButtonGroup style={{ float: 'right' }}>
-                            <Button type='submit' size='md' variant='success' >s'authentifier</Button>
-                            <Button type='reset' size='md' variant='secondary'>
-                                <Link to={'/login'}>
-                                annuler
-                                </Link>
-                            </Button>
-                        </ButtonGroup>
-                    </Card.Footer>
-                </Card>
-            </form>
+                                <div className='form-group'>
+                                    <label>Rôle :</label>
+                                    <Form.Select size='md' value={role} onChange={e => setRole(e.target.value)}>
+                                        <option>...</option>
+                                        <option>Administrateur</option>
+                                        <option>Utilisateur</option>
+                                    </Form.Select>
+                                </div>
+                            </Card.Body>
+                            <Card.Footer>
+                                <ButtonGroup style={{ float: 'right' }}>
+                                    <Button type='submit' size='md' variant='primary'>s'authentifier</Button>
+                                    <Button type='reset' size='md' variant='secondary'>
+                                        <Link to={'/login'}>
+                                           <span>annuler</span>
+                                        </Link>
+                                    </Button>
+                                </ButtonGroup>
+                            </Card.Footer>
+                        </Card>
+                    </form>
+                </div>
+            </div>
         </div>
     )
 }

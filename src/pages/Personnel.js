@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios';
-import { Button, ButtonGroup, Card, Col, Form, FloatingLabel, Modal, Row, Table } from 'react-bootstrap'
-import { Link, useParams } from 'react-router-dom';
+import { Button, ButtonGroup, Card, Col, Form, Modal, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEye, faPenToSquare, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faPenToSquare, faTrash, faPlus } from '@fortawesome/free-solid-svg-icons';
 import NavBar from './NavBar';
 import Base from './Base';
 
@@ -22,11 +22,11 @@ export default function Personnel() {
     const [persEmail, setPersEmail] = useState("");
     const [persId, setPersId] = useState("");
 
-    const [roleId, setRolesId] = useState("");
+    const [fonction, setFonction] = useState("");
     //const { roleId } = useParams();
     const [deletePersonnel, setDeletePersonnel] = useState(false);
 
-    const personnelInfo = { persCodeExp, persNom, persPrenom, persLogin, persMat, persCIN, persNumTel, persEmail, roleId };
+    const personnelInfo = { persCodeExp, persNom, persPrenom, persLogin, persMat, persCIN, persNumTel, persEmail, fonction };
 
     //detail personnel
     const [viewShow, setViewShow] = useState(false);
@@ -82,9 +82,9 @@ export default function Personnel() {
         console.log(result.data);
     }
 
-    const hangleChange = (event) => {
-        setRolesId(event.target.value);
-    }
+    // const hangleChange = (event) => {
+    //     setFonction(event.target.value);
+    // }
     //function get all personnel
     const loadPersonnels = async () => {
         const result = await axios.get("http://localhost:4000/api/personnels");
@@ -115,9 +115,6 @@ export default function Personnel() {
                             <input type='text' className='form-control' onChange={(e) => setSearch(e.target.value)} placeholder='rechercher ...' />
                         </div>
 
-                        <br />
-
-
                         {/* Card personnels */}
                         {
                             personnels.filter((item) => {
@@ -127,7 +124,7 @@ export default function Personnel() {
                             }).map((item) => (
 
                                 <div className='col-md-4 mb-3'>
-                                    <Card style={{ height: '100%' }}>
+                                    <Card>
                                         <Card.Header>
                                             <strong>Code exploitant : {item.persCodeExp}</strong>
                                         </Card.Header>
@@ -139,7 +136,7 @@ export default function Personnel() {
                                             <Card.Text><strong>CIN : </strong>{item.persCIN}</Card.Text>
                                             <Card.Text><strong>Téléphone : </strong>{item.persNumTel}</Card.Text>
                                             <Card.Text><strong>Email : </strong>{item.persEmail}</Card.Text>
-                                            <Card.Text><strong>Fonction : </strong>{item.roleId}</Card.Text>
+                                            <Card.Text><strong>Fonction : </strong>{item.fonction}</Card.Text>
                                             <strong> Action :</strong>
                                             <ButtonGroup aria-label='Basic example' style={{ float: 'right' }}>
                                                 <Button size='md' variant='warning'>
@@ -239,10 +236,11 @@ export default function Personnel() {
                                             </Form.Group>
                                             <Form.Group as={Col}>
                                                 <Form.Label>Fonction titulaire :</Form.Label>
-                                                <Form.Select className='form-control'>
+                                                <Form.Select onChange={(e) => setFonction(e.target.value)}>
+                                                    <option>...</option>
                                                     {
                                                         roles.map((item) => (
-                                                            <option value={item} key={item} onChange={e => setRolesId(e.target.value)} >{item.roleId}</option>
+                                                            <option>{item.roleFonction}</option>
                                                         ))
                                                     }
                                                 </Form.Select>
@@ -251,8 +249,8 @@ export default function Personnel() {
 
                                         <Row className="mb-3">
                                             <Form.Group as={Col} controlId="formGridLogin">
-                                                <Form.Label>Login :</Form.Label>
-                                                <Form.Control type="text" onChange={(e) => setPersLogin(e.target.value)} placeholder="entrer login" />
+                                                <Form.Label>Pseudo :</Form.Label>
+                                                <Form.Control type="text" onChange={(e) => setPersLogin(e.target.value)} placeholder="entrer pseudo" />
                                             </Form.Group>
                                             <Form.Group as={Col} controlId="formGridMat">
                                                 <Form.Label>Numéro matricule :</Form.Label>

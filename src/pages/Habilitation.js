@@ -234,7 +234,7 @@ export default function Habilitation() {
                                 <tr>
                                     <th>Code Exp</th>
                                     <th>Fonction titulaire</th>
-                                    <th>Fonction interimaire</th>
+                                    <th>Fonction interim</th>
                                     <th>Agence entrant</th>
                                     <th>Agence sortant</th>
                                     <th>Type habilitation</th>
