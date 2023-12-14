@@ -1,6 +1,9 @@
 # Frontend de l'Application de Gestion des Habilitations
 
+Bienvenue dans le frontend de l'Application de Gestion des Habilitations. Cette application, développée en React.js, vise à simplifier le processus de gestion des habilitations en fournissant une interface conviviale et des fonctionnalités complètes.
+
 ## Technologies Utilisées
+
 - React.js avec quelques dépendences comme axio, react-router-dom, react bootstrap, react toastify, etc
 
 ## Fonctionnalités Principales
